@@ -1,0 +1,6 @@
+package com.example.moviememory
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}

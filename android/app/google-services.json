@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "603704398022",
+    "firebase_url": "https://flutter-movie-memory.firebaseio.com",
+    "project_id": "flutter-movie-memory",
+    "storage_bucket": "flutter-movie-memory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603704398022:android:2c4d5839914abc391047c7",
+        "android_client_info": {
+          "package_name": "com.sjh.moviememory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603704398022-d0mbva3h6t3nip2bsbohnei113p906j1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGRiBYbTWu9ygtiH9AmvW_0WRrN-SNazs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603704398022-d0mbva3h6t3nip2bsbohnei113p906j1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
