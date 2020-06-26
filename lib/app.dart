@@ -10,13 +10,15 @@ import './app_init.dart';
 import './model/lifecycle.dart';
 import './model/appconfig/app_config_model.dart';
 import './model/auth/auth_model.dart';
+import './model/search/search_model.dart';
 import './screens/auth/auth_screen.dart';
-import './screens/dashboard/dashboard_screen.dart';
+import './screens/bottom_nav.dart';
 
 class App extends StatelessWidget {
 
   final _appConfigModel = AppConfigModel();
   final _authModel = AuthModel();
+  final _searchModel = SearchModel();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class App extends StatelessWidget {
             return MultiProvider(
               providers: [
                 ChangeNotifierProvider.value(value: _authModel),
+                ChangeNotifierProvider.value(value: _searchModel),
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,
@@ -68,8 +71,8 @@ class App extends StatelessWidget {
                         }
                         if(userSnapshot.hasData) { // There is token data
                           return ScreenTypeLayout(
-                            mobile: DashboardScreenM(),
-                            tablet: DashboardScreenT(),
+                            mobile: BottomNavM(),
+                            tablet: BottomNavT(),
                           );
                         } else { // There is no token data
                           return ScreenTypeLayout(
