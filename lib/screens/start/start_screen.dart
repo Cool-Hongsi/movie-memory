@@ -22,7 +22,7 @@ class StartScreenM extends StatelessWidget {
             )
           ),
           Positioned(
-            bottom: 0,
+            bottom: screenSize.height * .05,
             left: 0,
             right: 0,
             child: Container(

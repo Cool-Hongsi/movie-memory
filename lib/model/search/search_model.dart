@@ -9,25 +9,25 @@ import './search.dart';
 class SearchModel with ChangeNotifier {
 
   List<Search> movieList = [];
+  Map movieDetail = {};
 
-  static final String rapidMovieAPIUrl = DotEnv().env['RAPID_MOVIE_API_URL'];
-  static final String rapidMovieHost = DotEnv().env['RAPID_MOVIE_HOST'];
-  static final String rapidMovieKey = DotEnv().env['RAPID_MOVIE_KEY'];
-
-  Map<String, String> headers = {
-    "x-rapidapi-host": rapidMovieHost,
-    "x-rapidapi-key": rapidMovieKey
-  };
+  // final String rapidMovieAPIUrl = DotEnv().env['RAPID_MOVIE_API_URL'];
+  // Map<String, String> headers = {
+  //   "x-rapidapi-host": DotEnv().env['RAPID_MOVIE_HOST'],
+  //   "x-rapidapi-key": DotEnv().env['RAPID_MOVIE_KEY']
+  // };
 
   Future<String> searchMovieWithTitle(String movieTitle) async {
 
     // Need to initialize to when user search again
     List<Search> movieListSample = [];
+    
+    final response = await http.get('${DotEnv().env['RAPID_MOVIE_API_URL']}?r=json&s=$movieTitle', headers: {
+      "x-rapidapi-host": DotEnv().env['RAPID_MOVIE_HOST'],
+      "x-rapidapi-key": DotEnv().env['RAPID_MOVIE_KEY']
+    });
 
-    final response = await http.get(rapidMovieAPIUrl + '?r=json&s=$movieTitle', headers: headers);
     Map responseData = json.decode(response.body);
-
-    print(responseData['Search']);
 
     if(responseData['Search'] == null) {
       return 'There is no result\nPlease type correct movie name';
@@ -45,6 +45,25 @@ class SearchModel with ChangeNotifier {
 
     movieList = [...movieListSample];
 
+    notifyListeners();
+    return null;
+  } 
+
+  Future<String> searchMovieDetailWithID(String imdbID) async {
+
+    final response = await http.get('${DotEnv().env['RAPID_MOVIE_API_URL']}?r=json&i=$imdbID', headers: {
+      "x-rapidapi-host": DotEnv().env['RAPID_MOVIE_HOST'],
+      "x-rapidapi-key": DotEnv().env['RAPID_MOVIE_KEY']
+    });
+
+    Map responseData = json.decode(response.body);
+
+    if(responseData == null) {
+      return 'There is an error in calling data, please try again';
+    }
+
+    movieDetail = responseData;
+    
     notifyListeners();
     return null;
   } 

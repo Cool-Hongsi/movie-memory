@@ -75,7 +75,7 @@ class AuthModel with ChangeNotifier {
       
       await Firestore.instance.collection('users').document(user.uid).setData({
         'email': user.email,
-        'username': user.displayName
+        'username': user.displayName == null ? 'No Name' : user.displayName
       });
     } catch(err) {
       print(err);

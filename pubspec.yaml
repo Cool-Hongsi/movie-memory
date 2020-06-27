@@ -42,6 +42,11 @@ dependencies:
   firebase_storage: ^3.1.6 # firebase storage
   image_picker: ^0.6.7+2 # Image Select
   circular_reveal_animation: ^1.1.5 # Bottom Nav Animation
+  path_provider: ^1.1.0 # Save Image into Device
+  path: ^1.6.2 # Save Image into Device
+  flutter_rounded_date_picker: ^1.0.4 # Date Time Picker
+  intl: ^0.16.1 # DateTime
+  flutter_rating_bar: ^3.0.1+1 # Rate Movie
   
 
 dev_dependencies:
@@ -66,6 +71,7 @@ flutter:
     - assets/images/auth_image.png
     - assets/images/google-logo.jpg
     - assets/images/forgotpassword_image.png
+    - assets/images/default_detail_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

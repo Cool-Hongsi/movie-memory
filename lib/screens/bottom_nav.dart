@@ -38,7 +38,7 @@ class _BottomNavMState extends State<BottomNavM> {
             pageList[widget.bottomNavIndex]
           ),
           bottomNavigationBar: Container( 
-            height: screenSize.height * 0.13,
+            height: screenSize.height * 0.12,
             child: BottomAppBar(
               child: Container(
                 child: BottomNavigationBar(
@@ -56,12 +56,6 @@ class _BottomNavMState extends State<BottomNavM> {
               ),
             )
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.grey[700],
-            child: Icon(Icons.add),
-            onPressed: () {  },
-          ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         );
       }
     );

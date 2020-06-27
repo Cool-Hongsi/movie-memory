@@ -11,6 +11,7 @@ import './model/lifecycle.dart';
 import './model/appconfig/app_config_model.dart';
 import './model/auth/auth_model.dart';
 import './model/search/search_model.dart';
+import './model/add/add_model.dart';
 import './screens/auth/auth_screen.dart';
 import './screens/bottom_nav.dart';
 
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
   final _appConfigModel = AppConfigModel();
   final _authModel = AuthModel();
   final _searchModel = SearchModel();
+  final _addModel = AddModel();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class App extends StatelessWidget {
               providers: [
                 ChangeNotifierProvider.value(value: _authModel),
                 ChangeNotifierProvider.value(value: _searchModel),
+                ChangeNotifierProvider.value(value: _addModel),
               ],
               child: MaterialApp(
                 debugShowCheckedModeBanner: false,

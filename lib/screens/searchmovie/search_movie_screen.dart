@@ -16,6 +16,13 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
   final _searchFormKey = GlobalKey<FormState>();
   final _scaffoldSearchKey = GlobalKey<ScaffoldState>();
 
+  Future<void> onClickDetail(String imdbID) async {
+    Navigator.of(context).pushNamed('/detailmovie', arguments: {
+      "imdbID" : imdbID,
+      // Additional Parameter
+    });
+  }
+
   Future<void> _saveForm() async {
     FocusScope.of(context).unfocus();
 
@@ -152,20 +159,32 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                     : movieList.length > 0
                       ? Container(
                           width: double.infinity,
-                          height: screenSize.height * .708,
+                          height: screenSize.height * 1 - screenSize.height * 0.12 - 87, // Bottom Nav & Search Bar
                           child: ListView.builder(
                             itemCount: movieList.length,
                             itemBuilder: (context, index) {
-                              return Card(
-                                elevation: 5,
-                                child: ListTile(
-                                  leading: Container(
-                                    width: 50,
-                                    height: 50,
-                                    child: Image.network(movieList[index].poster)
+                              return GestureDetector(
+                                onTap: () { onClickDetail(movieList[index].imdbID); },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Card(
+                                    elevation: 5,
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: screenSize.width * .2,
+                                        height: screenSize.height * .2,
+                                        child: movieList[index].poster == "N/A"
+                                        ? Container()
+                                        : Image.network(movieList[index].poster, fit: BoxFit.cover)
+                                      ),
+                                      title: movieList[index].title == "N/A"
+                                      ? Text('')
+                                      : Text(movieList[index].title, style: TextStyle(fontFamily: 'Questrial', fontSize: 15, color: Colors.black87)),
+                                      subtitle: movieList[index].year == "N/A"
+                                      ? Text('')
+                                      : Text(movieList[index].year, style: TextStyle(fontFamily: 'Questrial', fontSize: 13, color: Colors.grey[500])),
+                                    ),
                                   ),
-                                  title: Text(movieList[index].title),
-                                  subtitle: Text(movieList[index].year),
                                 ),
                               );
                             }
@@ -179,7 +198,6 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                           )
                         ),
                       )
-                    
                   ],
                 ),
               ),
