@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../model/search/search_model.dart';
 
 class SearchMovieScreenM extends StatefulWidget {
@@ -70,6 +71,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
     final movieList = Provider.of<SearchModel>(context).movieList;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldSearchKey,
       resizeToAvoidBottomInset: false,
       body: LayoutBuilder(
@@ -97,9 +99,9 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                               height: 50,
                               child: TextFormField(
                                 textAlignVertical: TextAlignVertical.center,
-                                cursorColor: Colors.black,
+                                cursorColor: Colors.black87,
                                 style: TextStyle(
-                                  color: Colors.black,
+                                  color: Colors.black87,
                                 ),
                                 autocorrect: false,
                                 textCapitalization: TextCapitalization.none,
@@ -144,14 +146,14 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                         ],
                       ),
                     ),
-                    Divider(height: 3, color: Colors.black54),
+                    Divider(height: 3, color: Colors.black87),
                     isLoading
                     ? Expanded(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.grey[700]),
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.black87),
                             )
                           ],
                         ),
@@ -159,7 +161,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                     : movieList.length > 0
                       ? Container(
                           width: double.infinity,
-                          height: screenSize.height * 1 - screenSize.height * 0.12 - 87, // Bottom Nav & Search Bar
+                          height: screenSize.height * 1 - screenSize.height * .1 - 87, // Bottom Nav & Search Bar
                           child: ListView.builder(
                             itemCount: movieList.length,
                             itemBuilder: (context, index) {
@@ -168,7 +170,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: 5),
                                   child: Card(
-                                    elevation: 5,
+                                    elevation: 3,
                                     child: ListTile(
                                       leading: Container(
                                         width: screenSize.width * .2,
@@ -179,10 +181,24 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                                       ),
                                       title: movieList[index].title == "N/A"
                                       ? Text('')
-                                      : Text(movieList[index].title, style: TextStyle(fontFamily: 'Questrial', fontSize: 15, color: Colors.black87)),
+                                      : Text(
+                                        movieList[index].title,
+                                        style: TextStyle(
+                                          // fontFamily: 'Questrial', 
+                                          fontSize: 15,
+                                          color: Colors.black87
+                                        )
+                                      ),
                                       subtitle: movieList[index].year == "N/A"
                                       ? Text('')
-                                      : Text(movieList[index].year, style: TextStyle(fontFamily: 'Questrial', fontSize: 13, color: Colors.grey[500])),
+                                      : Text(
+                                        movieList[index].year,
+                                        style: TextStyle(
+                                          // fontFamily: 'Questrial',
+                                          fontSize: 13,
+                                          color: Colors.grey[500]
+                                        )
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -193,8 +209,11 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                       : Expanded(
                         child: Center(
                           child: Text(
-                            'No Movies',
+                            'Please Search',
                             textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black87
+                            ),
                           )
                         ),
                       )

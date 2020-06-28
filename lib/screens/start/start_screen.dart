@@ -5,27 +5,37 @@ class StartScreenM extends StatelessWidget {
   final Function slideStartBtn;
   StartScreenM({ this.slideStartBtn });
 
+  // Widget delaySlideText() {
+  //   // To match logo image loading time
+  //   Future.delayed(const Duration(milliseconds: 500), () {
+  //     return Text(
+  //       'Slide To Start',
+  //       style: TextStyle(
+  //         color: Colors.black87,
+  //         fontFamily: 'Quicksand-Bold',
+  //         fontSize: 18
+  //       ),
+  //     );
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: Image.asset(
-              'assets/images/start_image.jpg',
-              fit: BoxFit.fitHeight,
-            )
-          ),
-          Positioned(
-            bottom: screenSize.height * .05,
-            left: 0,
-            right: 0,
-            child: Container(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: screenSize.width * .55,
+              child: Image.asset('assets/images/movie_memory_logo.png'),
+            ),
+            Container(
+              width: double.infinity,
               alignment: Alignment.center,
               color: Colors.transparent,
               height: screenSize.height * 0.1,
@@ -37,26 +47,24 @@ class StartScreenM extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Movie Memory',
+                      'Slide To Start',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Questrial',
-                        fontSize: 22,
+                        color: Colors.black87,
+                        fontFamily: 'Quicksand-Bold',
+                        fontSize: 18
                       ),
-                    ),
-                    SizedBox(width: 12),
-                    Icon(Icons.compare_arrows, color: Colors.white)
+                    )
                   ],
                 ),
                 background: Container(
-                  color: Colors.white,
+                  color: Colors.black87,
                 ),
                 key: ValueKey('Movie Memory'),
               ),
             ),
-          )
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
 }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/auth/auth_model.dart';
 import '../reusuable/loading/loading_screen.dart';
+import '../../services/hex_color.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -100,6 +101,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false, // Prevent push contents when the keyboard shows up
       body: isLoading
@@ -121,7 +123,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                   )
                 ),
                 Container(
-                  color: Colors.black.withOpacity(0.2),
+                  // color: Colors.black.withOpacity(0.2),
                 ),
                 Positioned(
                   bottom: 0,
@@ -132,7 +134,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(topLeft: const Radius.circular(40)),
-                      color: Color.fromRGBO(255, 255, 255, 0.9)
+                      color: Color.fromRGBO(240, 240, 240, 0.9)
                     ),
                     child: SingleChildScrollView(
                       child: Container(
@@ -145,7 +147,13 @@ class _AuthScreenMState extends State<AuthScreenM> {
                               height: 50,
                               alignment: Alignment.centerRight,
                               child: FlatButton(
-                                child: Text('Forgot Password?', style: TextStyle(fontFamily: 'Questrial', fontWeight: FontWeight.bold)),
+                                child: Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                    // fontFamily: 'Questrial',
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
                                 onPressed: () { Navigator.of(context).pushNamed('/forgotpassword'); },
                               )
                             ),
@@ -163,11 +171,12 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [Colors.grey[400], Colors.grey[200]]
-                                      ),
+                                      color: Colors.white
+                                      // gradient: LinearGradient(
+                                      //   begin: Alignment.topRight,
+                                      //   end: Alignment.bottomLeft,
+                                      //   colors: [Colors.grey[400], Colors.grey[200]]
+                                      // ),
                                     ),
                                     child: TextFormField(
                                       textAlignVertical: TextAlignVertical.center,
@@ -218,11 +227,12 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [Colors.grey[400], Colors.grey[200]]
-                                      ),
+                                        color: Colors.white
+                                      // gradient: LinearGradient(
+                                      //   begin: Alignment.topRight,
+                                      //   end: Alignment.bottomLeft,
+                                      //   colors: [Colors.grey[400], Colors.grey[200]]
+                                      // ),
                                     ),
                                     child: TextFormField(
                                       textAlignVertical: TextAlignVertical.center,
@@ -274,11 +284,12 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                     height: 50,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(20)),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.bottomLeft,
-                                        colors: [Colors.grey[400], Colors.grey[200]]
-                                      ),
+                                      color: Colors.white
+                                      // gradient: LinearGradient(
+                                      //   begin: Alignment.topRight,
+                                      //   end: Alignment.bottomLeft,
+                                      //   colors: [Colors.grey[400], Colors.grey[200]]
+                                      // ),
                                     ),
                                     child: TextFormField(
                                       textAlignVertical: TextAlignVertical.center,
@@ -330,15 +341,15 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        color: Colors.grey[700],
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 3,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 4),
-                                          ),
-                                        ],
+                                        color: HexColor('#f04c24'),
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //     color: Colors.grey.withOpacity(0.5),
+                                        //     spreadRadius: 3,
+                                        //     blurRadius: 10,
+                                        //     offset: Offset(0, 4),
+                                        //   ),
+                                        // ],
                                       ),
                                       alignment: Alignment.center,
                                       child: Text(
@@ -347,8 +358,6 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                           color: Colors.white,
                                           fontSize: 17,
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'Questrial',
-                                          letterSpacing: 3
                                         ),
                                       )
                                     ),
@@ -362,15 +371,16 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        color: Colors.grey[700],
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(0.5),
-                                            spreadRadius: 3,
-                                            blurRadius: 10,
-                                            offset: Offset(0, 4),
-                                          ),
-                                        ],
+                                        border: Border.all(width: 2, color: HexColor('#f04c24')),
+                                        color: Color.fromRGBO(240, 240, 240, 0.9)
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //     color: Colors.grey.withOpacity(0.5),
+                                        //     spreadRadius: 3,
+                                        //     blurRadius: 10,
+                                        //     offset: Offset(0, 4),
+                                        //   ),
+                                        // ],
                                       ),
                                       alignment: Alignment.center,
                                       child: Row(
@@ -380,17 +390,16 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                             width: 25,
                                             height: 25,
                                             alignment: Alignment.center,
-                                            child: Image.asset('assets/images/google-logo.jpg', fit: BoxFit.cover),
+                                            child: Image.asset('assets/images/google-logo.jpg', color: HexColor('#f04c24'), fit: BoxFit.cover),
                                           ),
                                           SizedBox(width: 10),
                                           Text(
-                                            'Google Login',
+                                            'GOOGLE LOGIN',
                                             style: TextStyle(
-                                              color: Colors.white,
+                                              color: HexColor('#f04c24'),
                                               fontSize: 17,
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: 'Questrial',
-                                              letterSpacing: 3
+                                              // fontFamily: 'Questrial',
                                             ),
                                           )
                                         ],
@@ -404,7 +413,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       Text(
                                         '${_authMode == AuthMode.Login ? 'Don\'t have an account?' : 'Already have an account?'}',
                                         style: TextStyle(
-                                          fontFamily: 'Questrial',
+                                          // fontFamily: 'Questrial',
                                           fontSize: 16
                                         ),
                                       ),
@@ -412,7 +421,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                         child: Text(
                                           '${_authMode == AuthMode.Login ? 'SIGN UP' : 'LOGIN'}',
                                           style: TextStyle(
-                                            fontFamily: 'Questrial',
+                                            // fontFamily: 'Questrial',
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.black

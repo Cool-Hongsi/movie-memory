@@ -4,6 +4,7 @@ import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import './mymovie/my_movie_screen.dart';
 import './searchmovie/search_movie_screen.dart';
 import './profile/profile_screen.dart';
+import '../services/hex_color.dart';
 
 class BottomNavM extends StatefulWidget {
 
@@ -38,19 +39,19 @@ class _BottomNavMState extends State<BottomNavM> {
             pageList[widget.bottomNavIndex]
           ),
           bottomNavigationBar: Container( 
-            height: screenSize.height * 0.12,
+            height: screenSize.height * .1,
             child: BottomAppBar(
               child: Container(
                 child: BottomNavigationBar(
                   backgroundColor: Colors.white,
-                  selectedItemColor: Colors.black87,
+                  selectedItemColor: HexColor('#f04c24'),
                   unselectedItemColor: Colors.grey[400],
                   onTap: (index) => setState(() => widget.bottomNavIndex = index),
                   currentIndex: widget.bottomNavIndex,
                   items: [
-                    BottomNavigationBarItem(icon: Icon(Icons.movie, size: 24), title: Text('MyMovie', style: TextStyle(height: 1.5, fontSize: 14))),
-                    BottomNavigationBarItem(icon: Icon(Icons.search, size: 24), title: Text('Search', style: TextStyle(height: 1.5, fontSize: 14))),
-                    BottomNavigationBarItem(icon: Icon(Icons.person, size: 24), title: Text('Profile', style: TextStyle(height: 1.5, fontSize: 14))),
+                    BottomNavigationBarItem(icon: Icon(Icons.movie_creation, size: 24), title: Container()),
+                    BottomNavigationBarItem(icon: Icon(Icons.search, size: 24), title: Container()),
+                    BottomNavigationBarItem(icon: Icon(Icons.person, size: 24), title: Container()),
                   ]
                 ),
               ),

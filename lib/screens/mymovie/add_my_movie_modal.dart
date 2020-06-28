@@ -10,8 +10,13 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/add/add_model.dart';
+import '../../services/hex_color.dart';
 
 class AddMyMovieModalM extends StatefulWidget {
+
+  final Function addMovieSuccess;
+  AddMyMovieModalM({ this.addMovieSuccess });
+
   @override
   _AddMyMovieModalMState createState() => _AddMyMovieModalMState();
 }
@@ -105,13 +110,16 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
       pickedImage, watchTime, _titleController.text.trim(), _noteController.text.trim(), rate
     )
     .then((err) {
-      if(err == null) {
+      if(err == null) { // Success
         setState(() {
           isLoading = false;
         });
+
         Navigator.of(context).pop();
+        widget.addMovieSuccess();
         return ;
       }
+      // Fail
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
           content: Text(err),
@@ -173,9 +181,9 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
       lastDate: DateTime.now(),
       borderRadius: 16,
       theme: ThemeData.dark(),
-      imageHeader: AssetImage("assets/images/start_image.jpg"),
+      // imageHeader: AssetImage("assets/images/start_image.jpg"),
       description: "Select Watch Date",
-      fontFamily: 'Questrial',
+      // fontFamily: 'Questrial',
     );
 
     if(newDateTime == null) {
@@ -193,17 +201,28 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       key: _scaffoldAddMovieKey,
+      resizeToAvoidBottomInset: true,
       body: GestureDetector(
         onTap: () { FocusScope.of(context).unfocus(); },
         behavior: HitTestBehavior.opaque,
         child: Container(
           height: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  Container(
+                    width: screenSize.width * .15,
+                    height: 5,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.grey[500]
+                    ),
+                  ),
                   SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +231,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                         width: screenSize.width * .4,
                         height: screenSize.height * .2,
                         decoration: BoxDecoration(
-                          color: Colors.grey[400]
+                          color: Colors.grey[300]
                           // gradient: LinearGradient(
                           //   begin: Alignment.topRight,
                           //   end: Alignment.bottomLeft,
@@ -233,13 +252,26 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                           children: <Widget>[
                             FlatButton.icon(
                               onPressed: () { _onClickImagePicker('camera'); },
-                              icon: Icon(Icons.camera_alt, color: Colors.grey[700]),
-                              label: Text('Camera', style: TextStyle(fontFamily: 'Questrial', fontSize: 15, color: Colors.grey[700]))
+                              icon: Icon(Icons.camera_alt, color: Colors.black87),
+                              label: Text(
+                                'Camera',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black87
+                                )
+                              )
                             ),
                             FlatButton.icon(
                               onPressed: () { _onClickImagePicker('gallery'); },
-                              icon: Icon(Icons.photo_size_select_actual, color: Colors.grey[700]),
-                              label: Text('Gallery', style: TextStyle(fontFamily: 'Questrial', fontSize: 15, color: Colors.grey[700]))
+                              icon: Icon(Icons.photo_size_select_actual, color: Colors.black87),
+                              label: Text(
+                                'Gallery',
+                                style: TextStyle(
+                                  // fontFamily: 'Questrial',
+                                  fontSize: 15,
+                                  color: Colors.black87
+                                )
+                              )
                             ),
                           ],
                         ),
@@ -247,7 +279,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                     ],
                   ),
                   SizedBox(height: 15),
-                  Divider(height: 3),
+                  Divider(height: 3, color: Colors.black26),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: _showDatePicker,
@@ -256,7 +288,8 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                       width: double.infinity,
                       height: screenSize.height * .08,
                       decoration: BoxDecoration(
-                          color: Colors.grey[400]
+                          color: Colors.white,
+                          border: Border.all(width: 1, color: Colors.black87)
                           // gradient: LinearGradient(
                           //   begin: Alignment.topRight,
                           //   end: Alignment.bottomLeft,
@@ -265,18 +298,18 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                       ),
                       child: Text(
                         watchTime == null
-                        ? 'Watch Date'
+                        ? 'Select Watch Date'
                         : watchTime,
                         style: TextStyle(
                           color: Colors.black87,
-                          fontFamily: 'Questrial',
+                          // fontFamily: 'Questrial',
                           fontSize: 16
                         )
                       )
                     ),
                   ),
                   SizedBox(height: 15),
-                  Divider(height: 3),
+                  Divider(height: 3, color: Colors.black26),
                   SizedBox(height: 15),
                   Form(
                     key: _addMovieFormKey,
@@ -323,7 +356,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                           ),
                         ),
                         SizedBox(height: 15),
-                        Divider(height: 3),
+                        Divider(height: 3, color: Colors.black26),
                         SizedBox(height: 15),
                         Container(
                           width: double.infinity,
@@ -370,7 +403,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                     )
                   ),
                   SizedBox(height: 15),
-                  Divider(height: 3),
+                  Divider(height: 3, color: Colors.black26),
                   SizedBox(height: 15),
                   RatingBar(
                     initialRating: 0,
@@ -397,7 +430,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                     },
                   ),
                   SizedBox(height: 15),
-                  Divider(height: 3),
+                  Divider(height: 3, color: Colors.black26),
                   SizedBox(height: 15),
                   GestureDetector(
                     onTap: _saveForm,
@@ -406,7 +439,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                       height: screenSize.height * .08,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: Colors.grey[400]
+                          color: HexColor('#f04c24'),
                           // gradient: LinearGradient(
                           //   begin: Alignment.topRight,
                           //   end: Alignment.bottomLeft,
@@ -418,15 +451,15 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                           width: 20,
                           height: 20,
                           child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(Colors.black54),
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                       )
                       : Text(
-                        'Submit',
+                        'SUBMIT',
                         style: TextStyle(
-                          color: Colors.black87,
-                          fontFamily: 'Questrial',
-                          fontSize: 16
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Quicksand-Bold'
                         ),
                       ),
                     ),
@@ -443,6 +476,10 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
 }
 
 class AddMyMovieModalT extends StatefulWidget {
+
+  final Function addMovieSuccess;
+  AddMyMovieModalT({ this.addMovieSuccess });
+
   @override
   _AddMyMovieModalTState createState() => _AddMyMovieModalTState();
 }

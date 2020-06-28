@@ -29,7 +29,8 @@ class AuthModel with ChangeNotifier {
       // Add Firestore DB with addition information
       await Firestore.instance.collection('users').document(_authResult.user.uid).setData({
         'email': email,
-        'username': username
+        'username': username,
+        'created_at': Timestamp.now()
       });
       return null;
     } on PlatformException catch (err) {
@@ -75,7 +76,8 @@ class AuthModel with ChangeNotifier {
       
       await Firestore.instance.collection('users').document(user.uid).setData({
         'email': user.email,
-        'username': user.displayName == null ? 'No Name' : user.displayName
+        'username': user.displayName == null ? 'No Name' : user.displayName,
+        'created_at': Timestamp.now()
       });
     } catch(err) {
       print(err);

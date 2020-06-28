@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/auth/auth_model.dart';
 import '../reusuable/loading/loading_screen.dart';
+import '../../services/hex_color.dart';
 
 class ForgotPasswordScreenM extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
     return Scaffold(
       key: _scaffoldForgotPasswordKey,
       // resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.white,
       body: isLoading
       ? LoadingScreen()
       : GestureDetector(
@@ -93,11 +94,13 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                             height: 50,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular(20)),
-                              gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [Colors.grey[400], Colors.grey[200]]
-                              ),
+                              color: Colors.white,
+                              border: Border.all(width: 1, color: Colors.black87)
+                              // gradient: LinearGradient(
+                              //   begin: Alignment.topRight,
+                              //   end: Alignment.bottomLeft,
+                              //   colors: [Colors.grey[400], Colors.grey[200]]
+                              // ),
                             ),
                             child: TextFormField(
                               textAlignVertical: TextAlignVertical.center,
@@ -150,15 +153,15 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: Colors.grey[700],
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 2),
-                                  ),
-                                ],
+                                color: HexColor('#f04c24'),
+                                // boxShadow: [
+                                //   BoxShadow(
+                                //     color: Colors.grey.withOpacity(0.5),
+                                //     spreadRadius: 2,
+                                //     blurRadius: 2,
+                                //     offset: Offset(0, 2),
+                                //   ),
+                                // ],
                               ),
                               alignment: Alignment.center,
                               child: Text(
@@ -167,8 +170,6 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Questrial',
-                                  letterSpacing: 3
                                 ),
                               )
                             ),
@@ -178,7 +179,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                             'Password reset email will be sent to email',
                             style: TextStyle(
                               fontSize: 15,
-                              fontFamily: 'Questrial'
+                              // fontFamily: 'Questrial'
                             ),
                           )
                         ],

@@ -8,11 +8,12 @@ import 'package:flutter/services.dart';
 
 class AddModel with ChangeNotifier {
 
+  List<DocumentSnapshot> myMovieList = [];
+
   final _auth = FirebaseAuth.instance;
   final _store = Firestore.instance;
 
   Future<String> submitAddMovie(File image, String date, String title, String note, double rate) async {
-
     try {
       final currentUser = await _auth.currentUser();
 
@@ -25,7 +26,8 @@ class AddModel with ChangeNotifier {
         'watch_date': date,
         'movie_title': title,
         'movie_note': note,
-        'movie_rate': rate
+        'movie_rate': rate,
+        'created_at': Timestamp.now()
       });
     } on PlatformException catch (err) {
       if(err.message != null) {
@@ -35,6 +37,33 @@ class AddModel with ChangeNotifier {
       print(err);
       return err;
     }
+
+    return null;
+  }
+
+  Future<String> getMyMovieList() async {
+
+    List<DocumentSnapshot> myMovieListSample = [];
+
+    try {
+      final currentUser = await _auth.currentUser();
+      final data = await _store.collection('movies').document(currentUser.uid).collection('movie_list')
+      .orderBy('created_at', descending: true).getDocuments();
+
+      myMovieListSample = [...data.documents];
+
+      myMovieList = [...myMovieListSample];
+
+    } on PlatformException catch (err) {
+      if(err.message != null) {
+        return err.message;
+      }
+    } catch (err) {
+      print(err);
+      return err;
+    }
+
+    // notifyListeners();
 
     return null;
   }

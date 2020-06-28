@@ -10,6 +10,7 @@ class _ProfileScreenMState extends State<ProfileScreenM> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: FlatButton(
           child: Text('Sign Out'),

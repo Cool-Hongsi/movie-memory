@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import './navigation/routes/routes.dart';
@@ -39,7 +38,9 @@ class App extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 builder: DevicePreview.appBuilder,
                 title: 'Movie Memory',
-                theme: ThemeData(),
+                theme: ThemeData(
+                  fontFamily: 'Quicksand-Medium'
+                ),
                 home: AppInit(
                   onNext: (appConfig) {  
                     print('Loaded All AppInit Data Successfully');         
@@ -49,22 +50,17 @@ class App extends StatelessWidget {
                       builder: (context, userSnapshot) {
                         if(userSnapshot.connectionState == ConnectionState.waiting) {
                           return Scaffold(
-                            backgroundColor: Colors.grey[400],
+                            backgroundColor: Colors.white,
                             body: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  SpinKitFoldingCube(
-                                    color: Colors.white70,
-                                    size: 70.0,
-                                  ),
-                                  SizedBox(height: 45),
                                   Text(
                                     'Checking Sign In Information',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: 'Questrial',
-                                      fontWeight: FontWeight.bold
+                                      fontFamily: 'Quicksand-Bold',
+                                      color: Colors.black87
                                     ),
                                   )
                                 ],
