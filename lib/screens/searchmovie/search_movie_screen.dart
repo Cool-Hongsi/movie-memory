@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/search/search_model.dart';
+import '../../services/hex_color.dart';
 
 class SearchMovieScreenM extends StatefulWidget {
   @override
@@ -153,7 +154,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.black87),
+                              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#f04c24')),
                             )
                           ],
                         ),

@@ -53,6 +53,13 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
 
   // When User Add New Movie
   void _addMovieSuccess() {
+    _scaffoldmyMovieKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Successfully Added"),
+        backgroundColor: Colors.green[700],
+        duration: const Duration(seconds: 2),
+      )
+    );
     // Calling initGetMyMovieList() after delay since the new movie is done to add firebase successfully
     Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList());
   }
@@ -73,8 +80,8 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
         child: Container(
           height: screenSize.height * .8,
           child: ScreenTypeLayout(
-            mobile: AddMyMovieModalM(addMovieSuccess: _addMovieSuccess),
-            tablet: AddMyMovieModalT(addMovieSuccess: _addMovieSuccess),
+            mobile: AddMyMovieModalM(addMovieSuccess: _addMovieSuccess, moviePoster: null, movieTitle: null),
+            tablet: AddMyMovieModalT(addMovieSuccess: _addMovieSuccess, moviePoster: null, movieTitle: null),
           ),
         )
         );
@@ -82,12 +89,27 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
     );
   }
 
+  Future<void> _selectedMovieDetail(idValue) async {
+    print('Show Detail Page');
+    print(idValue);
+  }
+
+  Future<void> _selectedMovieModification(idValue) async {
+    print('Show Modification Page');
+    print(idValue);
+  }
+
+  Future<void> _selectedMovieDelete(idValue) async {
+    print('Show Delete Page');
+    print(idValue);
+  }
+
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
     final myMovieList = Provider.of<AddModel>(context).myMovieList;
-    print(myMovieList.length > 0 ? myMovieList[0].data : '');
+    // print(myMovieList.length > 0 ? myMovieList[0].data : '');
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -101,7 +123,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       body: isLoading
       ? Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.black87),
+          valueColor: AlwaysStoppedAnimation<Color>(HexColor('#f04c24')),
         ),
       )
       : myMovieList.length > 0
@@ -126,13 +148,89 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                   child: ListView.builder(
                     itemCount: myMovieList.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 5.0),
-                        child: Card(
-                          elevation: 3,
-                          child: ListTile(
-                            leading: Text(myMovieList[index].data['movie_title']),
-                          )
+                      return Dismissible(
+                        key: ValueKey('movieList'),
+                        confirmDismiss: (direction) {
+                          if(direction == DismissDirection.startToEnd) { // Modification
+                            _selectedMovieModification(myMovieList[index].data['id']);
+                          } else { // Delete
+                            _selectedMovieDelete(myMovieList[index].data['id']);
+                          }
+                          return ;
+                        },
+                        background: Container(
+                          color: HexColor('#f04c24'),
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: screenSize.width * .12),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Icon(Icons.create, color: Colors.white, size: 25)
+                        ),
+                        secondaryBackground: Container(
+                          color: Colors.black87,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.only(right: screenSize.width * .12),
+                          margin: EdgeInsets.only(bottom: 8.0),
+                          child: Icon(Icons.delete, color: Colors.white, size: 25)
+                        ),
+                        child: GestureDetector(
+                          onTap: () { _selectedMovieDetail(myMovieList[index].data['id']); },
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.only(right: screenSize.width * .07),
+                              height: screenSize.height * .16,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[100],
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20))
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Container(
+                                    width: screenSize.width * .23,
+                                    child: Image.network(
+                                      myMovieList[index].data['movie_image'],
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
+                                  SizedBox(width: screenSize.width * .07),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          myMovieList[index].data['movie_title'],
+                                          style: TextStyle(
+                                            fontFamily: 'Quicksand-Bold',
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        SizedBox(height: 3),
+                                        Text(
+                                          myMovieList[index].data['watch_date'],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                        SizedBox(height: 3),
+                                        if(myMovieList[index].data['movie_rate'] == 1.0)
+                                        Icon(Icons.sentiment_very_dissatisfied, color: Colors.red, size: 24),
+                                        if(myMovieList[index].data['movie_rate'] == 2.0)
+                                        Icon(Icons.sentiment_dissatisfied, color: Colors.orange, size: 24),
+                                        if(myMovieList[index].data['movie_rate'] == 3.0)
+                                        Icon(Icons.sentiment_neutral, color: Colors.yellow, size: 24),
+                                        if(myMovieList[index].data['movie_rate'] == 4.0)
+                                        Icon(Icons.sentiment_satisfied, color: Colors.green, size: 24),
+                                        if(myMovieList[index].data['movie_rate'] == 5.0)
+                                        Icon(Icons.sentiment_very_satisfied, color: Colors.blue, size: 24)
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ),
                         ),
                       );
                     }
