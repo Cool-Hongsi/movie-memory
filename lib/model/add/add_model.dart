@@ -14,6 +14,13 @@ class AddModel with ChangeNotifier {
   final _store = Firestore.instance;
 
   Future<String> submitAddMovie(File image, String date, String title, String note, double rate) async {
+
+    // print(image);
+    // print(date);
+    // print(title);
+    // print(note);
+    // print(rate);
+
     try {
       final currentUser = await _auth.currentUser();
 
@@ -28,6 +35,13 @@ class AddModel with ChangeNotifier {
         'movie_note': note,
         'movie_rate': rate,
         'created_at': Timestamp.now()
+      }).then((generatedDocument) {
+         _store.collection('movies').document(currentUser.uid).collection('movie_list').document(generatedDocument.documentID).updateData({
+           'id': generatedDocument.documentID
+         });
+      }).catchError((err) {
+        print(err);
+        return err;
       });
     } on PlatformException catch (err) {
       if(err.message != null) {
@@ -67,5 +81,8 @@ class AddModel with ChangeNotifier {
 
     return null;
   }
+
+  // document(~~).updateData() -> update
+  // document(~~).delete() -> delete
 
 }

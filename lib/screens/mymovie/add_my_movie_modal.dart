@@ -15,7 +15,10 @@ import '../../services/hex_color.dart';
 class AddMyMovieModalM extends StatefulWidget {
 
   final Function addMovieSuccess;
-  AddMyMovieModalM({ this.addMovieSuccess });
+  final File moviePoster;
+  final String movieTitle;
+
+  AddMyMovieModalM({ this.addMovieSuccess, this.moviePoster, this.movieTitle });
 
   @override
   _AddMyMovieModalMState createState() => _AddMyMovieModalMState();
@@ -24,24 +27,63 @@ class AddMyMovieModalM extends StatefulWidget {
 class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
 
   File pickedImage;
+  File selectWhichImageFile;
   String watchTime;
   double rate;
 
   bool isLoading = false;
   bool isValidating = false;
 
-  final _titleController = TextEditingController();
-  final _noteController = TextEditingController();
+  // final _titleController = TextEditingController();
+  String initialTitleValue;
+  String noteValue;
+  // final _noteController = TextEditingController();
   final _addMovieFormKey = GlobalKey<FormState>();
   final _scaffoldAddMovieKey = GlobalKey<ScaffoldState>();
 
   Future<void> _saveForm() async {
     FocusScope.of(context).unfocus();
 
-    final validation = _addMovieFormKey.currentState.validate();
+    // final validation = _addMovieFormKey.currentState.validate();
+
+    // Title Validation
+    if(initialTitleValue == null || initialTitleValue == ''){
+      _scaffoldAddMovieKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('Please enter title'),
+          backgroundColor: Theme.of(context).errorColor,
+          duration: const Duration(seconds: 2),
+        )
+      );
+      setState(() {
+        isValidating = false;
+      });
+    } else {
+      setState(() {
+        isValidating = true;
+      });
+    }
+
+    // Note Validation
+    if(noteValue == null || noteValue == ''){
+      _scaffoldAddMovieKey.currentState.showSnackBar(
+        SnackBar(
+          content: Text('Please enter notes'),
+          backgroundColor: Theme.of(context).errorColor,
+          duration: const Duration(seconds: 2),
+        )
+      );
+      setState(() {
+        isValidating = false;
+      });
+    } else {
+      setState(() {
+        isValidating = true;
+      });
+    }
 
     // Image Validation
-    if(pickedImage == null) {
+    if(pickedImage == null && widget.moviePoster == null) {
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please add image'),
@@ -77,7 +119,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     }
 
     // Rate Validation
-    if(rate == null) {
+    if(rate == null || rate == 0.0) {
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
           content: Text('Please add rate'),
@@ -94,51 +136,70 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
       });
     }
 
-    // Title & Note Validation
-    if(!isValidating){
+    if(pickedImage != null) {
+      selectWhichImageFile = pickedImage;
+    // ignore: unrelated_type_equality_checks
+    } else if(pickedImage == null && (widget.moviePoster != null || widget.moviePoster != "N/A")){
+      selectWhichImageFile = widget.moviePoster;
+    } else {
       return ;
     }
 
-    // If whole validation is passed, then isValidating will be ture
-    // print(isValidating);
+    // One more Validation as final to prevent bugs
+    if(!isValidating){
+      return ;
+    } else if(
+      isValidating &&
+      selectWhichImageFile != null && 
+      initialTitleValue != null && initialTitleValue != '' &&
+      noteValue != null && noteValue != '' &&
+      watchTime != null &&
+      rate != null && rate != 0.0
+    ) {
+      setState(() {
+        isLoading = true;
+      });
+      
+      Provider.of<AddModel>(context, listen: false).submitAddMovie(
+        selectWhichImageFile, watchTime, initialTitleValue, noteValue, rate
+      )
+      .then((err) {
+        if(err == null) { // Success
+          setState(() {
+            isLoading = false;
+          });
 
-    setState(() {
-      isLoading = true;
-    });
-
-    Provider.of<AddModel>(context, listen: false).submitAddMovie(
-      pickedImage, watchTime, _titleController.text.trim(), _noteController.text.trim(), rate
-    )
-    .then((err) {
-      if(err == null) { // Success
+          Navigator.of(context).pop();
+          widget.addMovieSuccess();
+          return ;
+        }
+        // Fail
+        _scaffoldAddMovieKey.currentState.showSnackBar(
+          SnackBar(
+            content: Text(err),
+            backgroundColor: Theme.of(context).errorColor,
+            duration: const Duration(seconds: 2),
+          )
+        );
         setState(() {
           isLoading = false;
         });
-
-        Navigator.of(context).pop();
-        widget.addMovieSuccess();
-        return ;
-      }
-      // Fail
-      _scaffoldAddMovieKey.currentState.showSnackBar(
-        SnackBar(
-          content: Text(err),
-          backgroundColor: Theme.of(context).errorColor,
-          duration: const Duration(seconds: 2),
-        )
-      );
-      setState(() {
-        isLoading = false;
       });
-    });
+    }
   }
 
   @override
-  void dispose() {
-    _titleController.dispose();
-    _noteController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    initialTitleValue = (widget.movieTitle != null || widget.movieTitle != "N/A") ? widget.movieTitle : '';
   }
+
+  // @override
+  // void dispose() {
+  //   // _titleController.dispose();
+  //   // _noteController.dispose();
+  //   super.dispose();
+  // }
 
   Future<void> _onClickImagePicker(String type) async {
     
@@ -191,14 +252,18 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     }
 
     setState(() {
-      watchTime = DateFormat.yMd().format(newDateTime);
+      watchTime = DateFormat.yMMMd().format(newDateTime);
     });
+    print(watchTime);
   }
 
   @override
   Widget build(BuildContext context) {
 
     final screenSize = MediaQuery.of(context).size;
+
+    // print(widget.moviePoster);
+    // print(widget.movieTitle);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -238,13 +303,15 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                           //   colors: [Colors.grey[400], Colors.grey[200]]
                           // ),
                         ),
-                        child: pickedImage == null
+                        child: (pickedImage == null && widget.moviePoster == null)
                         ? Container()
                         : Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(30)),
                           ),
-                          child: Image.file(pickedImage, fit: BoxFit.cover)
+                          child: pickedImage != null
+                          ? Image.file(pickedImage, fit: BoxFit.cover)
+                          : Image.file(widget.moviePoster, fit: BoxFit.cover)
                         ),
                       ),
                       Container(
@@ -328,31 +395,36 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                             textCapitalization: TextCapitalization.none,
                             enableSuggestions: false,
                             key: ValueKey('addMovieTitle'),
-                            validator: (value) {
-                              if(value.isEmpty) {
-                                _scaffoldAddMovieKey.currentState.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please enter title'),
-                                    backgroundColor: Theme.of(context).errorColor,
-                                    duration: const Duration(seconds: 2),
-                                  )
-                                );
-                                setState(() {
-                                  isValidating = false;
-                                });
-                                return null;
-                              }
-                              setState(() {
-                                isValidating = true;
-                              });
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if(value.isEmpty) {
+                            //     _scaffoldAddMovieKey.currentState.showSnackBar(
+                            //       SnackBar(
+                            //         content: Text('Please enter title'),
+                            //         backgroundColor: Theme.of(context).errorColor,
+                            //         duration: const Duration(seconds: 2),
+                            //       )
+                            //     );
+                            //     setState(() {
+                            //       isValidating = false;
+                            //     });
+                            //     return null;
+                            //   }
+                            //   setState(() {
+                            //     isValidating = true;
+                            //   });
+                            //   return null;
+                            // },
                             decoration: InputDecoration(
                               hintText: 'Title',
                               hintStyle: TextStyle(color: Colors.black87),
                               border: InputBorder.none,
                             ),
-                            controller: _titleController,
+                            /* initialValue == null || controller == null': is not true (Error -> Can not use initialValue & controller simultaneously) */
+                            initialValue: (widget.movieTitle != null || widget.movieTitle != "N/A") ? widget.movieTitle : '',
+                            onChanged: (value) {
+                              initialTitleValue = value;
+                            },
+                            // controller: _titleController,
                           ),
                         ),
                         SizedBox(height: 15),
@@ -372,31 +444,34 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                             textCapitalization: TextCapitalization.none,
                             enableSuggestions: false,
                             key: ValueKey('addMovieNote'),
-                            validator: (value) {
-                              if(value.isEmpty) {
-                                _scaffoldAddMovieKey.currentState.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please enter notes'),
-                                    backgroundColor: Theme.of(context).errorColor,
-                                    duration: const Duration(seconds: 2),
-                                  )
-                                );
-                                setState(() {
-                                  isValidating = false;
-                                });
-                                return null;
-                              }
-                              setState(() {
-                                isValidating = true;
-                              });
-                              return null;
-                            },
+                            // validator: (value) {
+                            //   if(value.isEmpty) {
+                            //     _scaffoldAddMovieKey.currentState.showSnackBar(
+                            //       SnackBar(
+                            //         content: Text('Please enter notes'),
+                            //         backgroundColor: Theme.of(context).errorColor,
+                            //         duration: const Duration(seconds: 2),
+                            //       )
+                            //     );
+                            //     setState(() {
+                            //       isValidating = false;
+                            //     });
+                            //     return null;
+                            //   }
+                            //   setState(() {
+                            //     isValidating = true;
+                            //   });
+                            //   return null;
+                            // },
                             decoration: InputDecoration(
                               hintText: 'Notes',
                               hintStyle: TextStyle(color: Colors.black87),
                               border: InputBorder.none,
                             ),
-                            controller: _noteController,
+                            // controller: _noteController,
+                            onChanged: (value) {
+                              noteValue = value;
+                            },
                           ),
                         ),
                       ],
@@ -478,7 +553,10 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
 class AddMyMovieModalT extends StatefulWidget {
 
   final Function addMovieSuccess;
-  AddMyMovieModalT({ this.addMovieSuccess });
+  final File moviePoster;
+  final String movieTitle;
+
+  AddMyMovieModalT({ this.addMovieSuccess, this.moviePoster, this.movieTitle });
 
   @override
   _AddMyMovieModalTState createState() => _AddMyMovieModalTState();
