@@ -12,6 +12,7 @@ class AddModel with ChangeNotifier {
 
   final _auth = FirebaseAuth.instance;
   final _store = Firestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   Future<String> submitAddMovie(File image, String date, String title, String note, double rate) async {
 
@@ -24,7 +25,7 @@ class AddModel with ChangeNotifier {
     try {
       final currentUser = await _auth.currentUser();
 
-      final ref = FirebaseStorage.instance.ref().child('movies').child(currentUser.uid).child(image.path);
+      final ref = _storage.ref().child('movies').child(currentUser.uid).child(image.path);
       await ref.putFile(image).onComplete;
       final url = await ref.getDownloadURL();
 

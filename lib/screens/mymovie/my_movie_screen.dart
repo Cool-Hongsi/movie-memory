@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:provider/provider.dart';
 import '../../model/add/add_model.dart';
+import '../../model/mymovie/my_movie_model.dart';
 
 import './add_my_movie_modal.dart';
 import '../../services/hex_color.dart';
@@ -89,19 +91,48 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
     );
   }
 
-  Future<void> _selectedMovieDetail(idValue) async {
-    print('Show Detail Page');
-    print(idValue);
+  void _selectedMovieDetail(Map selectedDocument) {
+    Navigator.of(context).pushNamed('/mymoviedetail', arguments: selectedDocument);
   }
 
-  Future<void> _selectedMovieModification(idValue) async {
-    print('Show Modification Page');
-    print(idValue);
-  }
-
-  Future<void> _selectedMovieDelete(idValue) async {
-    print('Show Delete Page');
-    print(idValue);
+  Future<void> _selectedMovieDelete(String documentId, String imageUrl, BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Movie', style: TextStyle(fontFamily: 'Quicksand-Bold'),),
+          content: Text('Do you want to delete movie from list?'),
+          elevation: 5,
+          actions: <Widget>[
+            FlatButton(
+              child: Text('NO', style: TextStyle(fontFamily: 'Quicksand-Bold', color: Colors.black87)),
+              onPressed: () { Navigator.of(context).pop(); },
+            ),
+            FlatButton(
+              child: Text('YES', style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#f04c24'))),
+              onPressed: () {
+                Provider.of<MyMovieModel>(context, listen: false).selectedMovieDelete(documentId, imageUrl)
+                .then((err) {
+                  if(err == null){ // success
+                    Navigator.of(context).pop();
+                    initGetMyMovieList();
+                    return ;
+                  }
+                  // fail
+                  _scaffoldmyMovieKey.currentState.showSnackBar(
+                    SnackBar(
+                      content: Text(err),
+                      backgroundColor: Theme.of(context).errorColor,
+                      duration: const Duration(seconds: 2),
+                    )
+                  );
+                });
+              },
+            ),
+          ],
+        );
+      }
+    );
   }
 
   @override
@@ -151,19 +182,19 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                       return Dismissible(
                         key: ValueKey('movieList'),
                         confirmDismiss: (direction) {
-                          if(direction == DismissDirection.startToEnd) { // Modification
-                            _selectedMovieModification(myMovieList[index].data['id']);
-                          } else { // Delete
-                            _selectedMovieDelete(myMovieList[index].data['id']);
+                          if(direction == DismissDirection.startToEnd) {
+                            _selectedMovieDelete(myMovieList[index].data['id'], myMovieList[index].data['movie_image'], context);
+                          } else {
+                            _selectedMovieDelete(myMovieList[index].data['id'], myMovieList[index].data['movie_image'], context);
                           }
                           return ;
                         },
                         background: Container(
-                          color: HexColor('#f04c24'),
+                          color: Colors.black87,
                           alignment: Alignment.centerLeft,
                           padding: EdgeInsets.only(left: screenSize.width * .12),
                           margin: EdgeInsets.only(bottom: 8.0),
-                          child: Icon(Icons.create, color: Colors.white, size: 25)
+                          child: Icon(Icons.delete, color: Colors.white, size: 25)
                         ),
                         secondaryBackground: Container(
                           color: Colors.black87,
@@ -173,7 +204,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                           child: Icon(Icons.delete, color: Colors.white, size: 25)
                         ),
                         child: GestureDetector(
-                          onTap: () { _selectedMovieDetail(myMovieList[index].data['id']); },
+                          onTap: () { _selectedMovieDetail(myMovieList[index].data); },
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Container(
