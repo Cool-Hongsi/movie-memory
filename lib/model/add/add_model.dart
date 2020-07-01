@@ -56,14 +56,14 @@ class AddModel with ChangeNotifier {
     return null;
   }
 
-  Future<String> getMyMovieList() async {
+  Future<String> getMyMovieList(String filterType) async {
 
     List<DocumentSnapshot> myMovieListSample = [];
 
     try {
       final currentUser = await _auth.currentUser();
       final data = await _store.collection('movies').document(currentUser.uid).collection('movie_list')
-      .orderBy('created_at', descending: true).getDocuments();
+      .orderBy(filterType, descending: true).getDocuments();
 
       myMovieListSample = [...data.documents];
 

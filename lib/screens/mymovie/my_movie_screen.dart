@@ -16,14 +16,16 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
 
   final _scaffoldmyMovieKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
+  bool filterByRate = false;
+  bool filterByWatchDate = false;
   List<String> filterList = [''];
 
-  Future<void> initGetMyMovieList() async {
+  Future<void> initGetMyMovieList(String filterType) async {
     setState(() {
       isLoading = true;
     });
 
-    await Provider.of<AddModel>(context, listen: false).getMyMovieList()
+    await Provider.of<AddModel>(context, listen: false).getMyMovieList(filterType)
     .then((err) {
       if(err == null) { // Success
         setState(() {
@@ -49,7 +51,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
   @override
   void initState() {
     super.initState();
-    initGetMyMovieList();
+    initGetMyMovieList('created_at');
   }
 
   // When User Add New Movie
@@ -62,7 +64,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       )
     );
     // Calling initGetMyMovieList() after delay since the new movie is done to add firebase successfully
-    Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList());
+    Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList('created_at'));
   }
 
   // When User Edit Movie
@@ -75,7 +77,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       )
     );
     // Calling initGetMyMovieList() after delay since the new movie is done to add firebase successfully
-    Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList());
+    Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList('created_at'));
   }
 
   void _showAddMovieModal(BuildContext ctx, Size screenSize) {
@@ -130,7 +132,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                 .then((err) {
                   if(err == null){ // success
                     Navigator.of(context).pop();
-                    initGetMyMovieList();
+                    initGetMyMovieList('created_at');
                     return ;
                   }
                   // fail
@@ -183,8 +185,69 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                   height: 50,
                   child: Row(
                     children: <Widget>[
-                      Icon(Icons.sort),
-                      // Additional Filter.. (ListView Horizon Direction ??)
+                      Icon(Icons.sort, color: Colors.black54, size: 25),
+                      SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          if(filterByRate) {
+                            initGetMyMovieList('created_at');
+                          } else {
+                            initGetMyMovieList('movie_rate');
+                          }                          
+                          setState(() {
+                            filterByRate = !filterByRate;
+                            filterByWatchDate = false;
+                          });
+                        },
+                        child: Container(
+                          width: 80,
+                          decoration: BoxDecoration(
+                            border: filterByRate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: filterByRate ? HexColor('#d90429') : Colors.white
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          child: Text(
+                            'Rate',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: filterByRate ? Colors.white : Colors.black87
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      GestureDetector(
+                        onTap: () {
+                          if(filterByWatchDate) {
+                            initGetMyMovieList('created_at');
+                          } else {
+                            initGetMyMovieList('watch_date');
+                          }                          
+                          setState(() {
+                            filterByWatchDate = !filterByWatchDate;
+                            filterByRate = false;
+                          });
+                        },
+                        child: Container(
+                          width: 80,
+                          decoration: BoxDecoration(
+                            border: filterByWatchDate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: filterByWatchDate ? HexColor('#d90429') : Colors.white
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                          child: Text(
+                            'Date',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: filterByWatchDate ? Colors.white : Colors.black87
+                            ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),
