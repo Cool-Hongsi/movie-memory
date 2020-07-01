@@ -154,7 +154,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#f04c24')),
+                              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#d90429')),
                             )
                           ],
                         ),

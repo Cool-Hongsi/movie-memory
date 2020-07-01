@@ -10,7 +10,7 @@ class LoadingScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: SpinKitFoldingCube(
-          color: HexColor('#f04c24'),
+          color: HexColor('#d90429'),
           size: 70.0,
         ),
       ),

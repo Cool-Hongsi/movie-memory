@@ -42,7 +42,8 @@ class App extends StatelessWidget {
                 builder: DevicePreview.appBuilder,
                 title: 'Movie Memory',
                 theme: ThemeData(
-                  fontFamily: 'Quicksand-Medium'
+                  fontFamily: 'Quicksand-Medium',
+                  errorColor: Colors.deepOrange
                 ),
                 home: AppInit(
                   onNext: (appConfig) {  

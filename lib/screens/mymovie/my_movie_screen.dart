@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:provider/provider.dart';
@@ -66,6 +65,19 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
     Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList());
   }
 
+  // When User Edit Movie
+  void _editMovieSuccess() {
+    _scaffoldmyMovieKey.currentState.showSnackBar(
+      SnackBar(
+        content: Text("Successfully Edited"),
+        backgroundColor: Colors.green[700],
+        duration: const Duration(seconds: 2),
+      )
+    );
+    // Calling initGetMyMovieList() after delay since the new movie is done to add firebase successfully
+    Future.delayed(const Duration(milliseconds: 700), () => initGetMyMovieList());
+  }
+
   void _showAddMovieModal(BuildContext ctx, Size screenSize) {
     showModalBottomSheet(
       context: ctx,
@@ -92,7 +104,10 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
   }
 
   void _selectedMovieDetail(Map selectedDocument) {
-    Navigator.of(context).pushNamed('/mymoviedetail', arguments: selectedDocument);
+    Navigator.of(context).pushNamed('/mymoviedetail', arguments: {
+      'selectedDocument' : selectedDocument, // map
+      'editMovieSuccess' : _editMovieSuccess // function
+    });
   }
 
   Future<void> _selectedMovieDelete(String documentId, String imageUrl, BuildContext context) async {
@@ -109,7 +124,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
               onPressed: () { Navigator.of(context).pop(); },
             ),
             FlatButton(
-              child: Text('YES', style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#f04c24'))),
+              child: Text('YES', style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
               onPressed: () {
                 Provider.of<MyMovieModel>(context, listen: false).selectedMovieDelete(documentId, imageUrl)
                 .then((err) {
@@ -146,7 +161,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       backgroundColor: Colors.white,
       key: _scaffoldmyMovieKey,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: HexColor('#f04c24'),
+        backgroundColor: HexColor('#d90429'),
         child: Icon(Icons.add),
         onPressed: () { _showAddMovieModal(context, screenSize); },
       ),
@@ -154,7 +169,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       body: isLoading
       ? Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(HexColor('#f04c24')),
+          valueColor: AlwaysStoppedAnimation<Color>(HexColor('#d90429')),
         ),
       )
       : myMovieList.length > 0

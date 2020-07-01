@@ -514,7 +514,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                       height: screenSize.height * .08,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                          color: HexColor('#f04c24'),
+                          color: HexColor('#d90429'),
                           // gradient: LinearGradient(
                           //   begin: Alignment.topRight,
                           //   end: Alignment.bottomLeft,

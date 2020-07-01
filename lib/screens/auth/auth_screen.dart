@@ -341,7 +341,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        color: HexColor('#f04c24'),
+                                        color: HexColor('#d90429'),
                                         // boxShadow: [
                                         //   BoxShadow(
                                         //     color: Colors.grey.withOpacity(0.5),
@@ -371,7 +371,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                                        border: Border.all(width: 2, color: HexColor('#f04c24')),
+                                        border: Border.all(width: 2, color: HexColor('#d90429')),
                                         color: Color.fromRGBO(240, 240, 240, 0.9)
                                         // boxShadow: [
                                         //   BoxShadow(
@@ -390,13 +390,13 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                             width: 25,
                                             height: 25,
                                             alignment: Alignment.center,
-                                            child: Image.asset('assets/images/google-logo.jpg', color: HexColor('#f04c24'), fit: BoxFit.cover),
+                                            child: Image.asset('assets/images/google-logo.jpg', color: HexColor('#d90429'), fit: BoxFit.cover),
                                           ),
                                           SizedBox(width: 10),
                                           Text(
                                             'GOOGLE LOGIN',
                                             style: TextStyle(
-                                              color: HexColor('#f04c24'),
+                                              color: HexColor('#d90429'),
                                               fontSize: 17,
                                               fontWeight: FontWeight.bold,
                                               // fontFamily: 'Questrial',
