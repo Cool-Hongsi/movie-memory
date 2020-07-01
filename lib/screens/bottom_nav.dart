@@ -44,7 +44,7 @@ class _BottomNavMState extends State<BottomNavM> {
               child: Container(
                 child: BottomNavigationBar(
                   backgroundColor: Colors.white,
-                  selectedItemColor: HexColor('#f04c24'),
+                  selectedItemColor: HexColor('#d90429'),
                   unselectedItemColor: Colors.grey[400],
                   onTap: (index) => setState(() => widget.bottomNavIndex = index),
                   currentIndex: widget.bottomNavIndex,
@@ -124,7 +124,7 @@ class _NavigationScreenState extends State<NavigationScreen> with TickerProvider
       height: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.grey[100], Colors.grey[800]],
+          colors: [Colors.white, Colors.black26],
         ),
       ),
       child: Center(

@@ -110,7 +110,7 @@ class _DetailMovieScreenMState extends State<DetailMovieScreenM> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#f04c24')),
+              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#d90429')),
             )
           ],
         ),
@@ -297,7 +297,7 @@ class _DetailMovieScreenMState extends State<DetailMovieScreenM> {
               width: screenSize.width * 1,
               height: 43,
               decoration: BoxDecoration(
-                color: HexColor('#f04c24'),
+                color: HexColor('#d90429'),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 35),

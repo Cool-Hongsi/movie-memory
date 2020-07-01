@@ -153,7 +153,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: HexColor('#f04c24'),
+                                color: HexColor('#d90429'),
                                 // boxShadow: [
                                 //   BoxShadow(
                                 //     color: Colors.grey.withOpacity(0.5),
