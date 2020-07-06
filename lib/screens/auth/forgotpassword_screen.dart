@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../model/auth/auth_model.dart';
 import '../reusuable/loading/loading_screen.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class ForgotPasswordScreenM extends StatefulWidget {
   @override
@@ -116,7 +117,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                                 if(value.isEmpty || !value.contains('@')) {
                                   _scaffoldForgotPasswordKey.currentState.showSnackBar(
                                     SnackBar(
-                                      content: Text('Please enter valid email address'),
+                                      content: Text(AppLocalizations.of(context).translate('emailErrorMsg')),
                                       backgroundColor: Theme.of(context).errorColor,
                                       duration: const Duration(seconds: 2),
                                     )
@@ -133,7 +134,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                               },
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
-                                hintText: 'Email',
+                                hintText: AppLocalizations.of(context).translate('emailHintText'),
                                 hintStyle: TextStyle(color: Colors.black),
                                 border: InputBorder.none,
                                 prefixIcon: Icon(
@@ -165,7 +166,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                               ),
                               alignment: Alignment.center,
                               child: Text(
-                                'SEND',
+                                AppLocalizations.of(context).translate('sendButtonText'),
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
@@ -176,7 +177,7 @@ class _ForgotPasswordScreenMState extends State<ForgotPasswordScreenM> {
                           ),
                           SizedBox(height: 25),
                           Text(
-                            'Password reset email will be sent to email',
+                            AppLocalizations.of(context).translate('forgotPasswordNotification'),
                             style: TextStyle(
                               fontSize: 15,
                               // fontFamily: 'Questrial'

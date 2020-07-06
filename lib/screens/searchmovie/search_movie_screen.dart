@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/search/search_model.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class SearchMovieScreenM extends StatefulWidget {
   @override
@@ -112,7 +113,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                                   if(value.isEmpty) {
                                     _scaffoldSearchKey.currentState.showSnackBar(
                                       SnackBar(
-                                        content: Text('Please enter any movie'),
+                                        content: Text(AppLocalizations.of(context).translate('searchMovieErrorMsg')),
                                         backgroundColor: Theme.of(context).errorColor,
                                         duration: const Duration(seconds: 2),
                                       )
@@ -128,7 +129,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                                   return null;
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Search',
+                                  hintText: AppLocalizations.of(context).translate('searchMovieHintText'),
                                   hintStyle: TextStyle(color: Colors.black87),
                                   border: InputBorder.none,
                                 ),
@@ -210,7 +211,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                       : Expanded(
                         child: Center(
                           child: Text(
-                            'Please Search',
+                            AppLocalizations.of(context).translate('noSearchMovieResult'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black87

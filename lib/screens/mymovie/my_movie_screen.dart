@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:provider/provider.dart';
+
 import '../../model/add/add_model.dart';
 import '../../model/mymovie/my_movie_model.dart';
-
 import './add_my_movie_modal.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class MyMovieScreenM extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
   void _addMovieSuccess() {
     _scaffoldmyMovieKey.currentState.showSnackBar(
       SnackBar(
-        content: Text("Successfully Added"),
+        content: Text(AppLocalizations.of(context).translate('successfullyAdded')),
         backgroundColor: Colors.green[700],
         duration: const Duration(seconds: 2),
       )
@@ -71,7 +72,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
   void _editMovieSuccess() {
     _scaffoldmyMovieKey.currentState.showSnackBar(
       SnackBar(
-        content: Text("Successfully Edited"),
+        content: Text(AppLocalizations.of(context).translate('successfullyEdited')),
         backgroundColor: Colors.green[700],
         duration: const Duration(seconds: 2),
       )
@@ -117,16 +118,16 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete Movie', style: TextStyle(fontFamily: 'Quicksand-Bold'),),
-          content: Text('Do you want to delete movie from list?'),
+          title: Text(AppLocalizations.of(context).translate('deleteMovie'), style: TextStyle(fontFamily: 'Quicksand-Bold'),),
+          content: Text(AppLocalizations.of(context).translate('deleteMovieConfirmText')),
           elevation: 5,
           actions: <Widget>[
             FlatButton(
-              child: Text('NO', style: TextStyle(fontFamily: 'Quicksand-Bold', color: Colors.black87)),
+              child: Text(AppLocalizations.of(context).translate('noText'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: Colors.black87)),
               onPressed: () { Navigator.of(context).pop(); },
             ),
             FlatButton(
-              child: Text('YES', style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
+              child: Text(AppLocalizations.of(context).translate('yesText'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
               onPressed: () {
                 Provider.of<MyMovieModel>(context, listen: false).selectedMovieDelete(documentId, imageUrl)
                 .then((err) {
@@ -208,7 +209,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                           ),
                           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           child: Text(
-                            'Rate',
+                            AppLocalizations.of(context).translate('rateFilterText'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 13,
@@ -223,7 +224,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                           if(filterByWatchDate) {
                             initGetMyMovieList('created_at');
                           } else {
-                            initGetMyMovieList('watch_date');
+                            initGetMyMovieList('watch_date_timestamp');
                           }                          
                           setState(() {
                             filterByWatchDate = !filterByWatchDate;
@@ -239,7 +240,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                           ),
                           padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           child: Text(
-                            'Date',
+                            AppLocalizations.of(context).translate('dateFilterText'),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 13,
@@ -351,7 +352,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
         )
         : Center(
           child: Text(
-            'There is no my movie list',
+            AppLocalizations.of(context).translate('thereIsNoMovieList'),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black87

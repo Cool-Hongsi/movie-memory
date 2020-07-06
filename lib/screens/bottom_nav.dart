@@ -34,6 +34,7 @@ class _BottomNavMState extends State<BottomNavM> {
       builder: (context, deviceSize) {
 
         return Scaffold(
+          backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
           body: NavigationScreen(
             pageList[widget.bottomNavIndex]

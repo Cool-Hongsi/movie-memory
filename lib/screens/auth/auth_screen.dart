@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../model/auth/auth_model.dart';
 import '../reusuable/loading/loading_screen.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -148,7 +149,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                               alignment: Alignment.centerRight,
                               child: FlatButton(
                                 child: Text(
-                                  'Forgot Password?',
+                                  AppLocalizations.of(context).translate('forgotPassword'),
                                   style: TextStyle(
                                     // fontFamily: 'Questrial',
                                     fontWeight: FontWeight.bold
@@ -192,7 +193,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                         if(value.isEmpty || !value.contains('@')) {
                                           Scaffold.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text('Please enter valid email address'),
+                                              content: Text(AppLocalizations.of(context).translate('emailErrorMsg')),
                                               backgroundColor: Theme.of(context).errorColor,
                                               duration: const Duration(seconds: 2),
                                             )
@@ -209,7 +210,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       },
                                       keyboardType: TextInputType.emailAddress,
                                       decoration: InputDecoration(
-                                        hintText: 'Email',
+                                        hintText: AppLocalizations.of(context).translate('emailHintText'),
                                         hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -248,7 +249,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                         if(value.isEmpty || value.length < 7) {
                                           Scaffold.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text('Password must be at least 7'),
+                                              content: Text(AppLocalizations.of(context).translate('passwordErrorMsg')),
                                               backgroundColor: Theme.of(context).errorColor,
                                               duration: const Duration(seconds: 2),
                                             )
@@ -265,7 +266,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       },
                                       obscureText: true,
                                       decoration: InputDecoration(
-                                        hintText: 'Password',
+                                        hintText: AppLocalizations.of(context).translate('passwordHintText'),
                                         hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -305,7 +306,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                         if(value.isEmpty || value.length < 4) {
                                           Scaffold.of(context).showSnackBar(
                                             SnackBar(
-                                              content: Text('Username must be at least 4'),
+                                              content: Text(AppLocalizations.of(context).translate('usernameErrorMsg')),
                                               backgroundColor: Theme.of(context).errorColor,
                                               duration: const Duration(seconds: 2),
                                             )
@@ -321,7 +322,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                         return null;
                                       },
                                       decoration: InputDecoration(
-                                        hintText: 'Username',
+                                        hintText: AppLocalizations.of(context).translate('usernameHintText'),
                                         hintStyle: TextStyle(color: Colors.black),
                                         border: InputBorder.none,
                                         prefixIcon: Icon(
@@ -353,7 +354,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       ),
                                       alignment: Alignment.center,
                                       child: Text(
-                                        _authMode == AuthMode.Login ? 'LOGIN' : 'SIGN UP',
+                                        _authMode == AuthMode.Login ? AppLocalizations.of(context).translate('loginText') : AppLocalizations.of(context).translate('signupText'),
                                         style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 17,
@@ -394,7 +395,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                           ),
                                           SizedBox(width: 10),
                                           Text(
-                                            'GOOGLE LOGIN',
+                                            AppLocalizations.of(context).translate('googleLogin'),
                                             style: TextStyle(
                                               color: HexColor('#d90429'),
                                               fontSize: 17,
@@ -411,7 +412,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        '${_authMode == AuthMode.Login ? 'Don\'t have an account?' : 'Already have an account?'}',
+                                        '${_authMode == AuthMode.Login ? AppLocalizations.of(context).translate('dontHaveAccount') : AppLocalizations.of(context).translate('alreadyHaveAccount')}',
                                         style: TextStyle(
                                           // fontFamily: 'Questrial',
                                           fontSize: 16
@@ -419,7 +420,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
                                       ),
                                       FlatButton(
                                         child: Text(
-                                          '${_authMode == AuthMode.Login ? 'SIGN UP' : 'LOGIN'}',
+                                          '${_authMode == AuthMode.Login ? AppLocalizations.of(context).translate('signupText') : AppLocalizations.of(context).translate('loginText')}',
                                           style: TextStyle(
                                             // fontFamily: 'Questrial',
                                             fontSize: 16,

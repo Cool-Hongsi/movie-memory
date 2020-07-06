@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/add/add_model.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class AddMyMovieModalM extends StatefulWidget {
 
@@ -50,7 +51,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     if(initialTitleValue == null || initialTitleValue == ''){
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please enter title'),
+          content: Text(AppLocalizations.of(context).translate('enterTitleErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -68,7 +69,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     if(noteValue == null || noteValue == ''){
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please enter notes'),
+          content: Text(AppLocalizations.of(context).translate('enterNoteErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -86,7 +87,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     if(pickedImage == null && widget.moviePoster == null) {
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please add image'),
+          content: Text(AppLocalizations.of(context).translate('addImageErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -104,7 +105,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     if(watchTime == null) {
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please select watch date'),
+          content: Text(AppLocalizations.of(context).translate('watchDateErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -122,7 +123,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     if(rate == null || rate == 0.0) {
       _scaffoldAddMovieKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please add rate'),
+          content: Text(AppLocalizations.of(context).translate('enterRateErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -321,7 +322,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                               onPressed: () { _onClickImagePicker('camera'); },
                               icon: Icon(Icons.camera_alt, color: Colors.black87),
                               label: Text(
-                                'Camera',
+                                AppLocalizations.of(context).translate('cameraText'),
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: Colors.black87
@@ -332,7 +333,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                               onPressed: () { _onClickImagePicker('gallery'); },
                               icon: Icon(Icons.photo_size_select_actual, color: Colors.black87),
                               label: Text(
-                                'Gallery',
+                                AppLocalizations.of(context).translate('galleryText'),
                                 style: TextStyle(
                                   // fontFamily: 'Questrial',
                                   fontSize: 15,
@@ -365,7 +366,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                       ),
                       child: Text(
                         watchTime == null
-                        ? 'Select Watch Date'
+                        ? AppLocalizations.of(context).translate('selectWatchDateText')
                         : watchTime,
                         style: TextStyle(
                           color: Colors.black87,
@@ -415,7 +416,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                             //   return null;
                             // },
                             decoration: InputDecoration(
-                              hintText: 'Title',
+                              hintText: AppLocalizations.of(context).translate('titleHintText'),
                               hintStyle: TextStyle(color: Colors.black87),
                               border: InputBorder.none,
                             ),
@@ -464,7 +465,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                             //   return null;
                             // },
                             decoration: InputDecoration(
-                              hintText: 'Notes',
+                              hintText: AppLocalizations.of(context).translate('notesHintText'),
                               hintStyle: TextStyle(color: Colors.black87),
                               border: InputBorder.none,
                             ),
@@ -530,7 +531,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
                           ),
                       )
                       : Text(
-                        'SUBMIT',
+                        AppLocalizations.of(context).translate('submitText'),
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,

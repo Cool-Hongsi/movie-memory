@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class StartScreenM extends StatelessWidget {
 
@@ -47,7 +48,7 @@ class StartScreenM extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Slide To Start',
+                      AppLocalizations.of(context).translate('slideToStart'),
                       style: TextStyle(
                         color: Colors.black87,
                         fontFamily: 'Quicksand-Bold',

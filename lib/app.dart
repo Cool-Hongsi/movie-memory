@@ -3,10 +3,13 @@ import 'package:device_preview/device_preview.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
+import './const/const_config/const_config.dart';
 import './navigation/routes/routes.dart';
 import './app_init.dart';
 import './model/lifecycle.dart';
+import './model/appconfig/app_locale.dart';
 import './model/appconfig/app_config_model.dart';
 import './model/auth/auth_model.dart';
 import './model/search/search_model.dart';
@@ -25,10 +28,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return LifeCycleManager(
       child: ChangeNotifierProvider(
         create: (context) => _appConfigModel,
-        child: Consumer<AppConfigModel>( // AppConfigModel Rebuild Point
+        child: Consumer<AppConfigModel>( // AppConfigModel Rebuild Point (Lanugage Change)
           builder: (context, value, child) {
             return MultiProvider(
               providers: [
@@ -38,7 +42,15 @@ class App extends StatelessWidget {
                 ChangeNotifierProvider.value(value: _myMovieModel),
               ],
               child: MaterialApp(
-                debugShowCheckedModeBanner: false,
+                supportedLocales: [
+                  Locale(kDefaultLang['DefaultLanguage'], kDefaultLang['DefaultCountryCode']),
+                  Locale(kKoLang['DefaultLanguage'], kKoLang['DefaultCountryCode']),
+                ],
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
                 builder: DevicePreview.appBuilder,
                 title: 'Movie Memory',
                 theme: ThemeData(
@@ -60,7 +72,7 @@ class App extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    'Checking Sign In Information',
+                                    AppLocalizations.of(context).translate('checkSignIn'),
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontFamily: 'Quicksand-Bold',
@@ -94,7 +106,7 @@ class App extends StatelessWidget {
             );
           },
         ),
-      ),
+      )
     );
   }
 }

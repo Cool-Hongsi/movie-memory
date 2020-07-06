@@ -4,38 +4,46 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../const/const_config/const_config.dart';
 
 class AppConfigModel with ChangeNotifier {
-  String language;
-  String unit;  // imperial , metric
-  bool isInit = false;
+  Locale _appLocale = Locale(kDefaultLang['DefaultLanguage']);
+
+  Locale get appLocal => _appLocale ?? Locale(kDefaultLang['DefaultLanguage']);
 
   AppConfigModel() {
-    // print('Call AppConfig');
-    getAppConfig();
+    fetchLocale();
   }
 
-  Future<bool> getAppConfig() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      language = prefs.getString("language") ?? kDefaultAppConfig['DefaultLanguage'];
-      unit = prefs.getString("unit") ?? kDefaultAppConfig['DefaultUnit'];
-      isInit = true;
-      return true;
-    } catch (e) {
-      return false;
+  Future<void> fetchLocale() async {
+    print("Call fetchLocale()");
+    
+    var prefs = await SharedPreferences.getInstance();
+
+    if (prefs.getString('language_code') == null) {
+      _appLocale = Locale(kDefaultLang['DefaultLanguage']);
+      return null;
     }
+
+    _appLocale = Locale(prefs.getString('language_code'));
+
+    return null;
   }
 
-  // This is called when config has been changed.
-  // For example, Language or unit is changed, then call this to apply.
-  Future<Map> loadAppConfig() async {
-    try {
-      if (!isInit) {
-        await getAppConfig();
-      }
-      return null;
-    } catch(e) {
-      notifyListeners();
-      return null;
+  void changeLanguage(Locale type) async {
+    var prefs = await SharedPreferences.getInstance();
+
+    if (_appLocale == type) {
+      return;
     }
+
+    if (type == Locale(kKoLang['DefaultLanguage'])) { // Korean
+      _appLocale = Locale(kKoLang['DefaultLanguage']);
+      await prefs.setString('language_code', kKoLang['DefaultLanguage']);
+      await prefs.setString('countryCode', kKoLang['DefaultCountryCode']);
+    } else {
+      _appLocale = Locale(kDefaultLang['DefaultLanguage']); // English
+      await prefs.setString('language_code', kDefaultLang['DefaultLanguage']);
+      await prefs.setString('countryCode', kDefaultLang['DefaultCountryCode']);
+    }
+    notifyListeners();
   }
+
 }
