@@ -5,7 +5,7 @@ import 'package:device_preview/device_preview.dart';
 
 import './app.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb) {
@@ -18,11 +18,11 @@ void main() {
       service.SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.transparent),
     );
   }
-
+  
   runApp(
     DevicePreview(
       enabled: kReleaseMode, // !kReleaseMode (open device preview) , kReleaseMode (close device preview)
-      builder: (context) => App(),
+      builder: (context) => App()
     ),
   );
 }

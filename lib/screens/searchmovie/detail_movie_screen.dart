@@ -306,7 +306,7 @@ class _DetailMovieScreenMState extends State<DetailMovieScreenM> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () { Navigator.pop(context); },
+                      onTap: () { FocusScope.of(context).unfocus(); Navigator.pop(context); },
                       child: Icon(
                         Icons.keyboard_arrow_left,
                         color: Colors.white,

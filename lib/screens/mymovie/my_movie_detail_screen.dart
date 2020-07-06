@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/mymovie/my_movie_model.dart';
 import '../../services/hex_color.dart';
+import '../../model/appconfig/app_locale.dart';
 
 class MyMovieDetailScreenM extends StatefulWidget {
   
@@ -45,7 +46,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
     else if(movieTitle != null && movieTitle.isEmpty) {
       _scaffoldMyMovielDetailKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please enter title'),
+          content: Text(AppLocalizations.of(context).translate('enterTitleErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -57,7 +58,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
     else if(movieNote != null && movieNote.isEmpty) {
       _scaffoldMyMovielDetailKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please enter notes'),
+          content: Text(AppLocalizations.of(context).translate('enterNoteErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -72,7 +73,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
     else if(movieRate == 0.0) {
       _scaffoldMyMovielDetailKey.currentState.showSnackBar(
         SnackBar(
-          content: Text('Please add rate'),
+          content: Text(AppLocalizations.of(context).translate('enterRateErrorMsg')),
           backgroundColor: Theme.of(context).errorColor,
           duration: const Duration(seconds: 2),
         )
@@ -96,7 +97,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
           });
 
           Navigator.of(context).pop();
-          widget.argMap['editMovieSuccess']();
+          widget.argMap['editMovieSuccess'](); // should put () to call parent function
           return ;
         }
         // Fail
@@ -122,7 +123,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
           });
 
           Navigator.of(context).pop();
-          widget.argMap['editMovieSuccess']();
+          widget.argMap['editMovieSuccess'](); // should put () to call parent function
           return ;
         }
         // Fail
@@ -181,7 +182,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
       borderRadius: 16,
       theme: ThemeData.dark(),
       // imageHeader: AssetImage("assets/images/start_image.jpg"),
-      description: "Select Watch Date",
+      // description: "Select Watch Date",
       // fontFamily: 'Questrial',
     );
 
@@ -215,6 +216,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
 
     return Scaffold(
       key: _scaffoldMyMovielDetailKey,
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: GestureDetector(
@@ -260,7 +262,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
                                   if(editSwitch){
                                     _scaffoldMyMovielDetailKey.currentState.showSnackBar(
                                       SnackBar(
-                                        content: Text('Please select area where you want to change'),
+                                        content: Text(AppLocalizations.of(context).translate('selectAreaToChange')),
                                         backgroundColor: Colors.green[700],
                                         duration: const Duration(seconds: 2),
                                       )
@@ -486,7 +488,7 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
                         ),
                     )
                     : Text(
-                      'UPDATE',
+                      AppLocalizations.of(context).translate('updateText'),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,

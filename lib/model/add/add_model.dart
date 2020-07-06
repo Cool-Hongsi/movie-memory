@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -13,7 +14,7 @@ class AddModel with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _store = Firestore.instance;
   final _storage = FirebaseStorage.instance;
-
+  
   Future<String> submitAddMovie(File image, String date, String title, String note, double rate) async {
 
     // print(image);
@@ -21,6 +22,8 @@ class AddModel with ChangeNotifier {
     // print(title);
     // print(note);
     // print(rate);
+
+    var stringToTimestamp = DateFormat('MMM d, yyyy').parse(date);
 
     try {
       final currentUser = await _auth.currentUser();
@@ -32,6 +35,7 @@ class AddModel with ChangeNotifier {
       await _store.collection('movies').document(currentUser.uid).collection('movie_list').add({
         'movie_image': url,
         'watch_date': date,
+        'watch_date_timestamp': stringToTimestamp, // for filter
         'movie_title': title,
         'movie_note': note,
         'movie_rate': rate,
@@ -59,7 +63,7 @@ class AddModel with ChangeNotifier {
   Future<String> getMyMovieList(String filterType) async {
 
     List<DocumentSnapshot> myMovieListSample = [];
-
+    
     try {
       final currentUser = await _auth.currentUser();
       final data = await _store.collection('movies').document(currentUser.uid).collection('movie_list')

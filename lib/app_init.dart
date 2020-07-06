@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:after_layout/after_layout.dart'; // Brings functionality to execute code after the first layout of a widget has been performed
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import './screens/reusuable/loading/loading_screen.dart';
 import './screens/start/start_screen.dart';

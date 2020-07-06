@@ -1,4 +1,9 @@
-const kDefaultAppConfig = {
+const kDefaultLang = {
   "DefaultLanguage": "en",
-  "DefaultUnit": "metric",    // imperial, metric
+  "DefaultCountryCode": "US"
+}; 
+
+const kKoLang = {
+  "DefaultLanguage": "ko",
+  "DefaultCountryCode": "KR",
 }; 
