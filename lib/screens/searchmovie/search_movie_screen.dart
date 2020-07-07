@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,14 +74,15 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
     final screenSize = MediaQuery.of(context).size;
     final movieList = Provider.of<SearchModel>(context).movieList;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      key: _scaffoldSearchKey,
-      resizeToAvoidBottomInset: false,
-      body: LayoutBuilder(
-        builder: (context, deviceSize) {
-
-          return GestureDetector(
+    return LayoutBuilder(
+      builder: (context, deviceSize) {
+        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 142 : 87; // include bottom nav (35)
+        
+        return Scaffold(
+          backgroundColor: Colors.white,
+          key: _scaffoldSearchKey,
+          resizeToAvoidBottomInset: false,
+          body: GestureDetector(
             onTap: () { FocusScope.of(context).unfocus(); },
             child: SafeArea(
               child: Padding(
@@ -163,7 +166,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                     : movieList.length > 0
                       ? Container(
                           width: double.infinity,
-                          height: screenSize.height * 1 - screenSize.height * .1 - 87, // Bottom Nav & Search Bar
+                          height: screenSize.height * 1 - screenSize.height * .1 - iosWithEarBodyHeight, // Bottom Nav & Search Bar
                           child: ListView.builder(
                             itemCount: movieList.length,
                             itemBuilder: (context, index) {
@@ -223,9 +226,9 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
                 ),
               ),
             ),
-          );
-        }
-      )
+          )
+        );
+      }
     );
   }
 }

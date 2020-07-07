@@ -49,6 +49,7 @@ dependencies:
   flutter_rounded_date_picker: ^1.0.4 # Date Time Picker
   intl: ^0.16.1 # DateTime
   flutter_rating_bar: ^3.0.1+1 # Rate Movie
+  share: ^0.6.4+3 # Share Content
   
 
 dev_dependencies:
