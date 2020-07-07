@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>603704398022-9m7nv22gvupk5h4n8fdb6ipuiptrfreh.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDD5S8W20KZzuYvao3ECRl0k_SXbX4sSqs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>603704398022</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sjh.moviememory</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-movie-memory</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-movie-memory.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:603704398022:ios:b7f5570d7dfbc9f61047c7</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutter-movie-memory.firebaseio.com</string>
+</dict>
+</plist>

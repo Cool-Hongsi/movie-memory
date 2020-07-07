@@ -6,15 +6,34 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
 		<string>ko</string>
 	</array>
-	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- TODO Replace this value: -->
+				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+				<string>com.googleusercontent.apps.603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>UsePhotoLibrary</string>
+	<key>NSCameraUsageDescription</key>
+	<string>UseCameraLibrary</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>UseMicLibrary</string>
 	<key>CFBundleName</key>
 	<string>moviememory</string>
 	<key>CFBundlePackageType</key>

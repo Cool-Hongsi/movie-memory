@@ -34,8 +34,8 @@ class _BottomNavMState extends State<BottomNavM> {
 
     return LayoutBuilder(
       builder: (context, deviceSize) {
-        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 35 : 0;
-
+        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 737) ? 30 : 0;
+        
         return Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,

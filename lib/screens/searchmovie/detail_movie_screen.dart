@@ -100,234 +100,238 @@ class _DetailMovieScreenMState extends State<DetailMovieScreenM> {
     final screenSize = MediaQuery.of(context).size;
     final movieDetail = Provider.of<SearchModel>(context).movieDetail;
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      key: _scaffoldDetailKey,
-      resizeToAvoidBottomInset: false,
-      body: isLoading
-      ? Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(HexColor('#d90429')),
-            )
-          ],
-        ),
-      )
-      : Stack(
-        children: <Widget>[
-          Container(
-            width: screenSize.width * 1,
-            height: screenSize.height * 1
-          ),
-          Container(
-            width: screenSize.width * 1,
-            height: screenSize.height * .6,
-            child: (movieDetail['Poster'] == "N/A" || !movieDetail.containsKey('Poster'))
-              /************** Poster **************/
-              ? Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300]
-                  ),
-                  alignment: Alignment.center,
-                  margin: EdgeInsets.only(bottom: screenSize.height * .2),
-                  child: Text(
-                    'No Image Data',
-                    style: TextStyle(
-                      fontFamily: 'Quicksand-Bold',
-                      fontSize: 24,
-                    )
-                  )
+    return LayoutBuilder(
+      builder: (context, deviceSize) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          key: _scaffoldDetailKey,
+          resizeToAvoidBottomInset: false,
+          body: isLoading
+          ? Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(HexColor('#d90429')),
                 )
-              : Image.network(movieDetail['Poster'], fit: BoxFit.cover)
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              width: screenSize.width * 1,
-              height: screenSize.height * .65,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
+              ],
+            ),
+          )
+          : Stack(
+            children: <Widget>[
+              Container(
+                width: screenSize.width * 1,
+                height: screenSize.height * 1
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 35, right: 35, top: 35, bottom: 43),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      /************** Title **************/
-                      Text((movieDetail['Title'] == "N/A" || !movieDetail.containsKey('Title'))
-                      ? "No Title Data"
-                      : movieDetail['Title'],
+              Container(
+                width: screenSize.width * 1,
+                height: screenSize.height * .6,
+                child: (movieDetail['Poster'] == "N/A" || !movieDetail.containsKey('Poster'))
+                  /************** Poster **************/
+                  ? Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300]
+                      ),
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(bottom: screenSize.height * .2),
+                      child: Text(
+                        'No Image Data',
                         style: TextStyle(
-                          color: Colors.black87,
                           fontFamily: 'Quicksand-Bold',
                           fontSize: 24,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Divider(height: 3, color: Colors.black54),
-                      SizedBox(height: 8),
-                      Row(
-                        children: <Widget>[
-                          /************** Run Time **************/
-                          Text((movieDetail['Runtime'] == "N/A" || !movieDetail.containsKey('Runtime'))
-                          ? "No Runtime Data"
-                          : movieDetail['Runtime'],
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 15
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.symmetric(horizontal: 8),
-                            child: Text('|', style: TextStyle(color: Colors.black87, fontSize: 15)),
-                          ),
-                          /************** Released **************/
-                          Text((movieDetail['Released'] == "N/A" || !movieDetail.containsKey('Released'))
-                          ? "No Released Data"
-                          : movieDetail['Released'],
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 15
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 6),
-                      /************** Genre **************/
-                      Text((movieDetail['Genre'] == "N/A" || !movieDetail.containsKey('Genre'))
-                        ? "No Genre Data"
-                        : movieDetail['Genre'],
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
-                          ),
-                      ),
-                      /************** Director **************/
-                      Text((movieDetail['Director'] == "N/A" || !movieDetail.containsKey('Director'))
-                        ? "No Director Data"
-                        : movieDetail['Director'],
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15
-                          ),
-                      ),
-                      /************** Actors **************/
-                      Text((movieDetail['Actors'] == "N/A" || !movieDetail.containsKey('Actors'))
-                        ? "No Actors Data"
-                        : movieDetail['Actors'],
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 15
-                          ),
-                      ),
-                      SizedBox(height: 25),
-                      /************** Plot **************/
-                      Text((movieDetail['Plot'] == "N/A" || !movieDetail.containsKey('Plot'))
-                        ? "No Plot Data"
-                        : movieDetail['Plot'],
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 15
-                        ),
-                      ),
-                      SizedBox(height: 25),
-                      /************** Rating Source **************/
-                      movieDetail['Ratings'] == "N/A" || !movieDetail.containsKey('Ratings')
-                      ? Text(
-                        "No Rate Data",
-                        style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 15
-                        ),
+                        )
                       )
-                      : Column(
+                    )
+                  : Image.network(movieDetail['Poster'], fit: BoxFit.cover)
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  width: screenSize.width * 1,
+                  height: screenSize.height * .65,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(25), topRight: Radius.circular(25))
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 35, right: 35, top: 35, bottom: 43),
+                    child: SingleChildScrollView(
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          for(var item in movieDetail['Ratings']) 
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Container(
-                              width: screenSize.width * .65,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    item['Source'],
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    item['Value'],
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                          /************** Title **************/
+                          Text((movieDetail['Title'] == "N/A" || !movieDetail.containsKey('Title'))
+                          ? "No Title Data"
+                          : movieDetail['Title'],
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontFamily: 'Quicksand-Bold',
+                              fontSize: 24,
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Divider(height: 3, color: Colors.black54),
+                          SizedBox(height: 8),
+                          Row(
+                            children: <Widget>[
+                              /************** Run Time **************/
+                              Text((movieDetail['Runtime'] == "N/A" || !movieDetail.containsKey('Runtime'))
+                              ? "No Runtime Data"
+                              : movieDetail['Runtime'],
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 15
+                                ),
                               ),
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 8),
+                                child: Text('|', style: TextStyle(color: Colors.black87, fontSize: 15)),
+                              ),
+                              /************** Released **************/
+                              Text((movieDetail['Released'] == "N/A" || !movieDetail.containsKey('Released'))
+                              ? "No Released Data"
+                              : movieDetail['Released'],
+                                style: TextStyle(
+                                  color: Colors.black87,
+                                  fontSize: 15
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 6),
+                          /************** Genre **************/
+                          Text((movieDetail['Genre'] == "N/A" || !movieDetail.containsKey('Genre'))
+                            ? "No Genre Data"
+                            : movieDetail['Genre'],
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15
+                              ),
+                          ),
+                          /************** Director **************/
+                          Text((movieDetail['Director'] == "N/A" || !movieDetail.containsKey('Director'))
+                            ? "No Director Data"
+                            : movieDetail['Director'],
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15
+                              ),
+                          ),
+                          /************** Actors **************/
+                          Text((movieDetail['Actors'] == "N/A" || !movieDetail.containsKey('Actors'))
+                            ? "No Actors Data"
+                            : movieDetail['Actors'],
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 15
+                              ),
+                          ),
+                          SizedBox(height: 25),
+                          /************** Plot **************/
+                          Text((movieDetail['Plot'] == "N/A" || !movieDetail.containsKey('Plot'))
+                            ? "No Plot Data"
+                            : movieDetail['Plot'],
+                              style: TextStyle(
+                                color: Colors.black54,
+                                fontSize: 15
+                            ),
+                          ),
+                          SizedBox(height: 25),
+                          /************** Rating Source **************/
+                          movieDetail['Ratings'] == "N/A" || !movieDetail.containsKey('Ratings')
+                          ? Text(
+                            "No Rate Data",
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 15
                             ),
                           )
+                          : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              for(var item in movieDetail['Ratings']) 
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 5),
+                                child: Container(
+                                  width: screenSize.width * .65,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        item['Source'],
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        item['Value'],
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 25)
                         ],
                       ),
-                      SizedBox(height: 25)
-                    ],
+                    )
+                  )
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  width: screenSize.width * 1,
+                  height: (Platform.isIOS && deviceSize.maxHeight >= 737) ? 55 : 43,
+                  decoration: BoxDecoration(
+                    color: HexColor('#d90429'),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 45),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: (Platform.isIOS && deviceSize.maxHeight >= 737) ? MainAxisAlignment.spaceBetween : MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () { FocusScope.of(context).unfocus(); Navigator.pop(context); },
+                          child: Icon(
+                            Icons.keyboard_arrow_left,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () { _showAddMovieModal(context, screenSize, movieDetail); },
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 22,
+                          ),
+                        ),
+                      ],
+                    )
                   ),
                 )
               )
-            ),
+            ],
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              width: screenSize.width * 1,
-              height: 43,
-              decoration: BoxDecoration(
-                color: HexColor('#d90429'),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 35),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () { FocusScope.of(context).unfocus(); Navigator.pop(context); },
-                      child: Icon(
-                        Icons.keyboard_arrow_left,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () { _showAddMovieModal(context, screenSize, movieDetail); },
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: Colors.white,
-                        size: 22,
-                      ),
-                    ),
-                  ],
-                )
-              ),
-            )
-          )
-        ],
-      ),
+        );
+      }
     );
   }
 }
