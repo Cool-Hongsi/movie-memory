@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 
 import '../../model/mymovie/my_movie_model.dart';
 import '../../services/hex_color.dart';
@@ -208,6 +209,15 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
     }
   }
 
+  Future<void> onClickShare(String title, String date, String note, double rate) async {
+    final RenderBox box = context.findRenderObject();
+    Share.share(
+      'Watch Date: $date\nMovie Rate: $rate\n\n$note', // content
+      subject: '$title', // title
+      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -277,7 +287,14 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
                               ),
                               SizedBox(width: 20),
                               GestureDetector(
-                                onTap: () { print('Click Share'); },
+                                onTap: () { 
+                                  onClickShare(
+                                    widget.argMap['selectedDocument']['movie_title'],
+                                    widget.argMap['selectedDocument']['watch_date'],
+                                    widget.argMap['selectedDocument']['movie_note'],
+                                    widget.argMap['selectedDocument']['movie_rate']
+                                  );
+                                },
                                 child: Icon(
                                   Icons.share,
                                   color: Colors.black87,

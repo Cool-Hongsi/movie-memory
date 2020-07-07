@@ -231,6 +231,7 @@ class _ProfileScreenMState extends State<ProfileScreenM> {
                   _scaffoldProfileKey.currentState.showSnackBar(
                   SnackBar(
                     // Note!! ctx from build function !!
+                    // Ancestor unsafe -> context Problem
                     content: Text(AppLocalizations.of(ctx).translate('successfullyDeleted')),
                     backgroundColor: Colors.green[700],
                     duration: const Duration(seconds: 2),
@@ -241,6 +242,7 @@ class _ProfileScreenMState extends State<ProfileScreenM> {
                 _scaffoldProfileKey.currentState.showSnackBar(
                   SnackBar(
                     // Note!! ctx from build function !!
+                    // Ancestor unsafe -> context Problem
                     content: Text(err),
                     backgroundColor: Theme.of(ctx).errorColor,
                     duration: const Duration(seconds: 2),

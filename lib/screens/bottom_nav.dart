@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 
@@ -32,6 +34,7 @@ class _BottomNavMState extends State<BottomNavM> {
 
     return LayoutBuilder(
       builder: (context, deviceSize) {
+        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 35 : 0;
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -40,7 +43,7 @@ class _BottomNavMState extends State<BottomNavM> {
             pageList[widget.bottomNavIndex]
           ),
           bottomNavigationBar: Container( 
-            height: screenSize.height * .1,
+            height: screenSize.height * .1 + iosWithEarBodyHeight,
             child: BottomAppBar(
               child: Container(
                 child: BottomNavigationBar(
