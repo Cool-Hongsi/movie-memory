@@ -8,6 +8,7 @@ import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 import '../../model/add/add_model.dart';
 import '../../services/hex_color.dart';
@@ -157,6 +158,44 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
       watchTime != null &&
       rate != null && rate != 0.0
     ) {
+
+      /**************** Ad Mob ****************/
+      final String androidAppId = "ca-app-pub-4302543059249739~2986003913";
+      final String iosAppId = "ca-app-pub-4302543059249739~3421666925";
+
+      if(Platform.isAndroid) {
+        FirebaseAdMob.instance.initialize(appId: androidAppId);
+      } else if(Platform.isIOS) {
+        FirebaseAdMob.instance.initialize(appId: iosAppId);
+      }
+
+      final String androidAdUnitId = "ca-app-pub-4302543059249739/5420595560";
+      final String iosAdUnitId = "ca-app-pub-4302543059249739/6929118352";
+
+      MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+        keywords: <String>['movie', 'my movie', 'movie memory', 'movie remember', 'movie list', 'movie search', 'movie store', 'movie storage'],
+        contentUrl: 'https://flutter.io',
+        childDirected: false,
+        testDevices: <String>['Nexus_5X_API_28_2', 'Pixel_3a_API_28_2'], // Android emulators are considered test devices
+      );
+
+      InterstitialAd myInterstitial = InterstitialAd(
+        adUnitId: (Platform.isAndroid) ? androidAdUnitId : iosAdUnitId,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print("InterstitialAd event is $event");
+        },
+      );
+
+      myInterstitial
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+        anchorOffset: 0.0,
+        horizontalCenterOffset: 0.0,
+      );
+      /**************** Ad Mob ****************/
+
       setState(() {
         isLoading = true;
       });

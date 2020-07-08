@@ -50,7 +50,7 @@ dependencies:
   intl: ^0.16.1 # DateTime
   flutter_rating_bar: ^3.0.1+1 # Rate Movie
   share: ^0.6.4+3 # Share Content
-  
+  firebase_admob: ^0.9.3+2 # AD
 
 dev_dependencies:
   flutter_test:

@@ -28,6 +28,8 @@
 			</array>
 		</dict>
 	</array>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4302543059249739~3421666925</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>UsePhotoLibrary</string>
 	<key>NSCameraUsageDescription</key>
