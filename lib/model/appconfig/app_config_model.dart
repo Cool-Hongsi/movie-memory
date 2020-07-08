@@ -38,7 +38,13 @@ class AppConfigModel with ChangeNotifier {
       _appLocale = Locale(kKoLang['DefaultLanguage']);
       await prefs.setString('language_code', kKoLang['DefaultLanguage']);
       await prefs.setString('countryCode', kKoLang['DefaultCountryCode']);
-    } else {
+    }
+    else if (type == Locale(kCnLang['DefaultLanguage'])){ // Chinese
+      _appLocale = Locale(kCnLang['DefaultLanguage']);
+      await prefs.setString('language_code', kCnLang['DefaultLanguage']);
+      await prefs.setString('countryCode', kCnLang['DefaultCountryCode']);
+    }    
+    else {
       _appLocale = Locale(kDefaultLang['DefaultLanguage']); // English
       await prefs.setString('language_code', kDefaultLang['DefaultLanguage']);
       await prefs.setString('countryCode', kDefaultLang['DefaultCountryCode']);

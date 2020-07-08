@@ -11,12 +11,6 @@ class SearchModel with ChangeNotifier {
   List<Search> movieList = [];
   Map movieDetail = {};
 
-  // final String rapidMovieAPIUrl = DotEnv().env['RAPID_MOVIE_API_URL'];
-  // Map<String, String> headers = {
-  //   "x-rapidapi-host": DotEnv().env['RAPID_MOVIE_HOST'],
-  //   "x-rapidapi-key": DotEnv().env['RAPID_MOVIE_KEY']
-  // };
-
   Future<String> searchMovieWithTitle(String movieTitle) async {
 
     // Need to initialize to when user search again

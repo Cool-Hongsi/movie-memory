@@ -45,6 +45,7 @@ class App extends StatelessWidget {
                 supportedLocales: [
                   Locale(kDefaultLang['DefaultLanguage'], kDefaultLang['DefaultCountryCode']),
                   Locale(kKoLang['DefaultLanguage'], kKoLang['DefaultCountryCode']),
+                  Locale(kCnLang['DefaultLanguage'], kCnLang['DefaultCountryCode'])
                 ],
                 localizationsDelegates: [
                   AppLocalizations.delegate,

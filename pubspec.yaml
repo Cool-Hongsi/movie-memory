@@ -76,6 +76,7 @@ flutter:
     - assets/images/movie_memory_logo.png
     - assets/i18n/en.json
     - assets/i18n/ko.json
+    - assets/i18n/zh_CN.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
