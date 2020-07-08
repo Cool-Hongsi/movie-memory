@@ -311,6 +311,7 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                                     children: <Widget>[
                                       Container(
                                         width: screenSize.width * .23,
+                                        height: screenSize.height * .16,
                                         child: Image.network(
                                           myMovieList[index].data['movie_image'],
                                           // fit: BoxFit.fitWidth,
