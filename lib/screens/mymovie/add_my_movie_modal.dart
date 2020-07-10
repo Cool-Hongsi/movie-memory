@@ -36,10 +36,9 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
   bool isLoading = false;
   bool isValidating = false;
 
-  // final _titleController = TextEditingController();
   String initialTitleValue;
   String noteValue;
-  // final _noteController = TextEditingController();
+
   final _addMovieFormKey = GlobalKey<FormState>();
   final _scaffoldAddMovieKey = GlobalKey<ScaffoldState>();
 
@@ -283,7 +282,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
       borderRadius: 16,
       theme: ThemeData.dark(),
       // imageHeader: AssetImage("assets/images/start_image.jpg"),
-      description: "Select Watch Date",
+      // description: "Select Watch Date",
       // fontFamily: 'Questrial',
     );
 
@@ -294,7 +293,7 @@ class _AddMyMovieModalMState extends State<AddMyMovieModalM> {
     setState(() {
       watchTime = DateFormat.yMMMd().format(newDateTime);
     });
-    print(watchTime);
+    // print(watchTime);
   }
 
   @override

@@ -272,10 +272,10 @@ class _ProfileScreenMState extends State<ProfileScreenM> {
           content: Text(AppLocalizations.of(context).translate('translationNotSupportText'), style: TextStyle(fontSize: 15)),
           elevation: 5,
           actions: <Widget>[
-            FlatButton(
-              child: Text(AppLocalizations.of(context).translate('close'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: Colors.black87)),
-              onPressed: () { Navigator.of(context).pop(); },
-            ),
+            // FlatButton(
+            //   child: Text(AppLocalizations.of(context).translate('close'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: Colors.black87)),
+            //   onPressed: () { Navigator.of(context).pop(); },
+            // ),
             FlatButton(
               child: Text(AppLocalizations.of(context).translate('english'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
               onPressed: () {
@@ -287,6 +287,13 @@ class _ProfileScreenMState extends State<ProfileScreenM> {
               child: Text(AppLocalizations.of(context).translate('korean'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
               onPressed: () {
                 Provider.of<AppConfigModel>(context, listen: false).changeLanguage(Locale("ko"));
+                Navigator.of(context).pop();
+              }
+            ),
+            FlatButton(
+              child: Text(AppLocalizations.of(context).translate('chinese'), style: TextStyle(fontFamily: 'Quicksand-Bold', color: HexColor('#d90429'))),
+              onPressed: () {
+                Provider.of<AppConfigModel>(context, listen: false).changeLanguage(Locale("zh_CN"));
                 Navigator.of(context).pop();
               }
             ),
