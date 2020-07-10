@@ -212,8 +212,8 @@ class _MyMovieDetailScreenMState extends State<MyMovieDetailScreenM> {
   Future<void> onClickShare(String title, String date, String note, double rate) async {
     final RenderBox box = context.findRenderObject();
     Share.share(
-      'Watch Date: $date\nMovie Rate: $rate\n\n$note', // content
-      subject: '$title', // title
+      'Movie Title: $title\n\nMovie Rate: $rate\nWatch Date: $date\n\n$note', // content
+      // subject: '$title', // title
       sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size
     );
   }

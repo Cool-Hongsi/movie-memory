@@ -28,7 +28,7 @@ class _AuthScreenMState extends State<AuthScreenM> {
 
   Future<void> _saveForm() async {
     final validation = _authFormKey.currentState.validate();
-
+    
     if(!isValidating){
       return ;
     }

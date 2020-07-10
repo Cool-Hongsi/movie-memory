@@ -163,7 +163,8 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
 
     return LayoutBuilder(
       builder: (context, deviceSize) {
-        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 129 : 74; // include bottom nav (35)
+        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 737) ? 124 : 74; // include bottom nav (30)
+        // print(deviceSize.maxHeight);
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -190,70 +191,75 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                       width: double.infinity,
                       height: 50,
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Icon(Icons.sort, color: Colors.black54, size: 25),
-                          SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () {
-                              if(filterByRate) {
-                                initGetMyMovieList('created_at');
-                              } else {
-                                initGetMyMovieList('movie_rate');
-                              }                          
-                              setState(() {
-                                filterByRate = !filterByRate;
-                                filterByWatchDate = false;
-                              });
-                            },
-                            child: Container(
-                              width: 80,
-                              decoration: BoxDecoration(
-                                border: filterByRate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: filterByRate ? HexColor('#d90429') : Colors.white
-                              ),
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                              child: Text(
-                                AppLocalizations.of(context).translate('rateFilterText'),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: filterByRate ? Colors.white : Colors.black87
+                          Row(
+                            children: <Widget>[
+                              Icon(Icons.sort, color: Colors.black54, size: 25),
+                              SizedBox(width: 15),
+                              GestureDetector(
+                                onTap: () {
+                                  if(filterByRate) {
+                                    initGetMyMovieList('created_at');
+                                  } else {
+                                    initGetMyMovieList('movie_rate');
+                                  }                          
+                                  setState(() {
+                                    filterByRate = !filterByRate;
+                                    filterByWatchDate = false;
+                                  });
+                                },
+                                child: Container(
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    border: filterByRate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    color: filterByRate ? HexColor('#d90429') : Colors.white
+                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                  child: Text(
+                                    AppLocalizations.of(context).translate('rateFilterText'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: filterByRate ? Colors.white : Colors.black87
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(width: 15),
+                              GestureDetector(
+                                onTap: () {
+                                  if(filterByWatchDate) {
+                                    initGetMyMovieList('created_at');
+                                  } else {
+                                    initGetMyMovieList('watch_date_timestamp');
+                                  }                          
+                                  setState(() {
+                                    filterByWatchDate = !filterByWatchDate;
+                                    filterByRate = false;
+                                  });
+                                },
+                                child: Container(
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    border: filterByWatchDate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
+                                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                                    color: filterByWatchDate ? HexColor('#d90429') : Colors.white
+                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                  child: Text(
+                                    AppLocalizations.of(context).translate('dateFilterText'),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: filterByWatchDate ? Colors.white : Colors.black87
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(width: 15),
-                          GestureDetector(
-                            onTap: () {
-                              if(filterByWatchDate) {
-                                initGetMyMovieList('created_at');
-                              } else {
-                                initGetMyMovieList('watch_date_timestamp');
-                              }                          
-                              setState(() {
-                                filterByWatchDate = !filterByWatchDate;
-                                filterByRate = false;
-                              });
-                            },
-                            child: Container(
-                              width: 80,
-                              decoration: BoxDecoration(
-                                border: filterByWatchDate ? Border.all(width: 0, color: Colors.transparent) : Border.all(width: 1, color: Colors.black54),
-                                borderRadius: BorderRadius.all(Radius.circular(20)),
-                                color: filterByWatchDate ? HexColor('#d90429') : Colors.white
-                              ),
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                              child: Text(
-                                AppLocalizations.of(context).translate('dateFilterText'),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: filterByWatchDate ? Colors.white : Colors.black87
-                                ),
-                              ),
-                            ),
-                          )
                         ],
                       ),
                     ),
@@ -307,7 +313,8 @@ class _MyMovieScreenMState extends State<MyMovieScreenM> {
                                         width: screenSize.width * .23,
                                         child: Image.network(
                                           myMovieList[index].data['movie_image'],
-                                          fit: BoxFit.fitWidth,
+                                          // fit: BoxFit.fitWidth,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(width: screenSize.width * .07),
