@@ -16,27 +16,6 @@
 		<string>ko</string>
 		<string>zh_CN</string>
 	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<!-- TODO Replace this value: -->
-				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-				<string>com.googleusercontent.apps.603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji</string>
-			</array>
-		</dict>
-	</array>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-4302543059249739~3421666925</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>UsePhotoLibrary</string>
-	<key>NSCameraUsageDescription</key>
-	<string>UseCameraLibrary</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>UseMicLibrary</string>
 	<key>CFBundleName</key>
 	<string>moviememory</string>
 	<key>CFBundlePackageType</key>
@@ -45,10 +24,31 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.603704398022-fkebhuk6mjjj6lrehg8c93e5iahgg4qo</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4302543059249739~3421666925</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>UseCameraLibrary</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>UseMicLibrary</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>UsePhotoLibrary</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -56,8 +56,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
