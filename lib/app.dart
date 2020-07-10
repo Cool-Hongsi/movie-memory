@@ -32,7 +32,7 @@ class App extends StatelessWidget {
     return LifeCycleManager(
       child: ChangeNotifierProvider(
         create: (context) => _appConfigModel,
-        child: Consumer<AppConfigModel>( // AppConfigModel Rebuild Point (Lanugage Change)
+        child: Consumer<AppConfigModel>( // AppConfigModel Rebuild Point (Language Change)
           builder: (context, value, child) {
             return MultiProvider(
               providers: [
