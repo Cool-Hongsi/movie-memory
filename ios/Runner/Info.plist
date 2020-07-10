@@ -25,7 +25,7 @@
 			<array>
 				<!-- TODO Replace this value: -->
 				<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-				<string>com.googleusercontent.apps.603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji</string>
+				<string>com.googleusercontent.apps.603704398022-fkebhuk6mjjj6lrehg8c93e5iahgg4qo</string>
 			</array>
 		</dict>
 	</array>
@@ -67,6 +67,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 </dict>
 </plist>
