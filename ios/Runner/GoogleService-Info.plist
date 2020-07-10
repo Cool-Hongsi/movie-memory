@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji.apps.googleusercontent.com</string>
+	<string>603704398022-fkebhuk6mjjj6lrehg8c93e5iahgg4qo.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.603704398022-36fuou6j2t17nfjm9r7f0bvdl4p4d7ji</string>
+	<string>com.googleusercontent.apps.603704398022-fkebhuk6mjjj6lrehg8c93e5iahgg4qo</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>603704398022-9m7nv22gvupk5h4n8fdb6ipuiptrfreh.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sjh.moviememory</string>
+	<string>com.sjh.moviememoryios</string>
 	<key>PROJECT_ID</key>
 	<string>flutter-movie-memory</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:603704398022:ios:b7f5570d7dfbc9f61047c7</string>
+	<string>1:603704398022:ios:79c173b13d0eab331047c7</string>
 	<key>DATABASE_URL</key>
 	<string>https://flutter-movie-memory.firebaseio.com</string>
 </dict>
