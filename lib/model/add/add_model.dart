@@ -86,4 +86,8 @@ class AddModel with ChangeNotifier {
 
     return null;
   }
+
+  // document(~~).updateData() -> update
+  // document(~~).delete() -> delete
+
 }

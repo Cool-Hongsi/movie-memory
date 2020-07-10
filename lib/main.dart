@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' as service;
-// import 'package:device_preview/device_preview.dart';
+import 'package:device_preview/device_preview.dart';
 
 import './app.dart';
 
@@ -20,10 +20,9 @@ void main() async {
   }
   
   runApp(
-    App()
-    // DevicePreview(
-    //   enabled: kReleaseMode, // !kReleaseMode (open device preview) , kReleaseMode (close device preview)
-    //   builder: (context) => App()
-    // ),
+    DevicePreview(
+      enabled: kReleaseMode, // !kReleaseMode (open device preview) , kReleaseMode (close device preview)
+      builder: (context) => App()
+    ),
   );
 }

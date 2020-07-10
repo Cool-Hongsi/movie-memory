@@ -50,7 +50,7 @@ dependencies:
   intl: ^0.16.1 # DateTime
   flutter_rating_bar: ^3.0.1+1 # Rate Movie
   share: ^0.6.4+3 # Share Content
-  firebase_admob: ^0.9.3+2 # AD
+  
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +76,6 @@ flutter:
     - assets/images/movie_memory_logo.png
     - assets/i18n/en.json
     - assets/i18n/ko.json
-    - assets/i18n/zh_CN.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

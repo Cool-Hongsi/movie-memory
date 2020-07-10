@@ -76,7 +76,7 @@ class _SearchMovieScreenMState extends State<SearchMovieScreenM> {
 
     return LayoutBuilder(
       builder: (context, deviceSize) {
-        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 737) ? 137 : 87; // include bottom nav (30)
+        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 142 : 87; // include bottom nav (35)
         
         return Scaffold(
           backgroundColor: Colors.white,
