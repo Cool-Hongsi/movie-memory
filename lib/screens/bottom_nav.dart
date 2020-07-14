@@ -9,17 +9,15 @@ import './profile/profile_screen.dart';
 import '../services/hex_color.dart';
 
 class BottomNavM extends StatefulWidget {
-
   int bottomNavIndex;
 
-  BottomNavM({ this.bottomNavIndex = 0 });
+  BottomNavM({this.bottomNavIndex = 0});
 
   @override
   _BottomNavMState createState() => _BottomNavMState();
 }
 
 class _BottomNavMState extends State<BottomNavM> {
-
   // Page List
   final pageList = <dynamic>[
     MyMovieScreenM(), // 0
@@ -29,41 +27,42 @@ class _BottomNavMState extends State<BottomNavM> {
 
   @override
   Widget build(BuildContext context) {
-
     final screenSize = MediaQuery.of(context).size;
 
-    return LayoutBuilder(
-      builder: (context, deviceSize) {
-        int iosWithEarBodyHeight = (Platform.isIOS && deviceSize.maxHeight >= 812) ? 35 : 0;
+    return LayoutBuilder(builder: (context, deviceSize) {
+      int iosWithEarBodyHeight =
+          (Platform.isIOS && deviceSize.maxHeight >= 812) ? 35 : 0;
 
-        return Scaffold(
-          backgroundColor: Colors.white,
-          resizeToAvoidBottomInset: false,
-          body: NavigationScreen(
-            pageList[widget.bottomNavIndex]
-          ),
-          bottomNavigationBar: Container( 
+      return Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        body: NavigationScreen(pageList[widget.bottomNavIndex]),
+        bottomNavigationBar: Container(
             height: screenSize.height * .1 + iosWithEarBodyHeight,
             child: BottomAppBar(
               child: Container(
                 child: BottomNavigationBar(
-                  backgroundColor: Colors.white,
-                  selectedItemColor: HexColor('#d90429'),
-                  unselectedItemColor: Colors.grey[400],
-                  onTap: (index) => setState(() => widget.bottomNavIndex = index),
-                  currentIndex: widget.bottomNavIndex,
-                  items: [
-                    BottomNavigationBarItem(icon: Icon(Icons.movie_creation, size: 24), title: Container()),
-                    BottomNavigationBarItem(icon: Icon(Icons.search, size: 24), title: Container()),
-                    BottomNavigationBarItem(icon: Icon(Icons.person, size: 24), title: Container()),
-                  ]
-                ),
+                    backgroundColor: Colors.white,
+                    selectedItemColor: HexColor('#d90429'),
+                    unselectedItemColor: Colors.grey[400],
+                    onTap: (index) =>
+                        setState(() => widget.bottomNavIndex = index),
+                    currentIndex: widget.bottomNavIndex,
+                    items: [
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.movie_creation, size: 24),
+                          title: Container()),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.search, size: 24),
+                          title: Container()),
+                      BottomNavigationBarItem(
+                          icon: Icon(Icons.person, size: 24),
+                          title: Container()),
+                    ]),
               ),
-            )
-          ),
-        );
-      }
-    );
+            )),
+      );
+    });
   }
 }
 
@@ -76,7 +75,8 @@ class NavigationScreen extends StatefulWidget {
   _NavigationScreenState createState() => _NavigationScreenState();
 }
 
-class _NavigationScreenState extends State<NavigationScreen> with TickerProviderStateMixin {
+class _NavigationScreenState extends State<NavigationScreen>
+    with TickerProviderStateMixin {
   AnimationController _controller;
   Animation<double> animation;
 
@@ -122,7 +122,6 @@ class _NavigationScreenState extends State<NavigationScreen> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       width: double.infinity,
       height: double.infinity,
@@ -133,11 +132,10 @@ class _NavigationScreenState extends State<NavigationScreen> with TickerProvider
       ),
       child: Center(
         child: CircularRevealAnimation(
-          animation: animation,
-          centerOffset: Offset(0, 0),
-          maxRadius: MediaQuery.of(context).size.longestSide * 1.1,
-          child: widget.pageData
-        ),
+            animation: animation,
+            centerOffset: Offset(0, 0),
+            maxRadius: MediaQuery.of(context).size.longestSide * 1.1,
+            child: widget.pageData),
       ),
     );
   }
@@ -151,8 +149,6 @@ class BottomNavT extends StatefulWidget {
 class _BottomNavTState extends State<BottomNavT> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return Container();
   }
 }

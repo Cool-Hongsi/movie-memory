@@ -19,7 +19,6 @@ import './screens/auth/auth_screen.dart';
 import './screens/bottom_nav.dart';
 
 class App extends StatelessWidget {
-
   final _appConfigModel = AppConfigModel();
   final _authModel = AuthModel();
   final _searchModel = SearchModel();
@@ -28,13 +27,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return LifeCycleManager(
-      child: ChangeNotifierProvider(
-        create: (context) => _appConfigModel,
-        child: Consumer<AppConfigModel>( // AppConfigModel Rebuild Point (Lanugage Change)
-          builder: (context, value, child) {
-            return MultiProvider(
+        child: ChangeNotifierProvider(
+      create: (context) => _appConfigModel,
+      child: Consumer<AppConfigModel>(
+        // AppConfigModel Rebuild Point (Lanugage Change)
+        builder: (context, value, child) {
+          return MultiProvider(
               providers: [
                 ChangeNotifierProvider.value(value: _authModel),
                 ChangeNotifierProvider.value(value: _searchModel),
@@ -42,10 +41,14 @@ class App extends StatelessWidget {
                 ChangeNotifierProvider.value(value: _myMovieModel),
               ],
               child: MaterialApp(
+                debugShowCheckedModeBanner: false,
                 supportedLocales: [
-                  Locale(kDefaultLang['DefaultLanguage'], kDefaultLang['DefaultCountryCode']),
-                  Locale(kKoLang['DefaultLanguage'], kKoLang['DefaultCountryCode']),
-                  Locale(kCnLang['DefaultLanguage'], kCnLang['DefaultCountryCode'])
+                  Locale(kDefaultLang['DefaultLanguage'],
+                      kDefaultLang['DefaultCountryCode']),
+                  Locale(kKoLang['DefaultLanguage'],
+                      kKoLang['DefaultCountryCode']),
+                  Locale(
+                      kCnLang['DefaultLanguage'], kCnLang['DefaultCountryCode'])
                 ],
                 localizationsDelegates: [
                   AppLocalizations.delegate,
@@ -55,59 +58,57 @@ class App extends StatelessWidget {
                 builder: DevicePreview.appBuilder,
                 title: 'Movie Memory',
                 theme: ThemeData(
-                  fontFamily: 'Quicksand-Medium',
-                  errorColor: Colors.deepOrange
-                ),
-                home: AppInit(
-                  onNext: (appConfig) {  
-                    print('Loaded All AppInit Data Successfully');         
-                    print(appConfig);           
-                    return StreamBuilder(
-                      stream: FirebaseAuth.instance.onAuthStateChanged, // Call when the state of auth is changed
-                      builder: (context, userSnapshot) {
-                        if(userSnapshot.connectionState == ConnectionState.waiting) {
-                          return Scaffold(
-                            backgroundColor: Colors.white,
-                            body: Center(
+                    fontFamily: 'Quicksand-Medium',
+                    errorColor: Colors.deepOrange),
+                home: AppInit(onNext: (appConfig) {
+                  print('Loaded All AppInit Data Successfully');
+                  print(appConfig);
+                  return StreamBuilder(
+                    stream: FirebaseAuth.instance
+                        .onAuthStateChanged, // Call when the state of auth is changed
+                    builder: (context, userSnapshot) {
+                      if (userSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Scaffold(
+                          backgroundColor: Colors.white,
+                          body: Center(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    AppLocalizations.of(context).translate('checkSignIn'),
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: 'Quicksand-Bold',
-                                      color: Colors.black87
-                                    ),
-                                  )
-                                ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                AppLocalizations.of(context)
+                                    .translate('checkSignIn'),
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Quicksand-Bold',
+                                    color: Colors.black87),
                               )
-                            ),
-                          );
-                        }
-                        if(userSnapshot.hasData) { // There is token data
-                          return ScreenTypeLayout(
-                            mobile: BottomNavM(),
-                            tablet: BottomNavT(),
-                          );
-                        } else { // There is no token data
-                          return ScreenTypeLayout(
-                            mobile: AuthScreenM(),
-                            tablet: AuthScreenT(),
-                          );
-                        }
-                      },
-                    );
-                  } 
-                ),
+                            ],
+                          )),
+                        );
+                      }
+                      if (userSnapshot.hasData) {
+                        // There is token data
+                        return ScreenTypeLayout(
+                          mobile: BottomNavM(),
+                          tablet: BottomNavT(),
+                        );
+                      } else {
+                        // There is no token data
+                        return ScreenTypeLayout(
+                          mobile: AuthScreenM(),
+                          tablet: AuthScreenT(),
+                        );
+                      }
+                    },
+                  );
+                }),
                 // routes: {},
                 onGenerateRoute: Routes.generateRoute,
                 // onUnknownRoute: (settings) {},
-              )
-            );
-          },
-        ),
-      )
-    );
+              ));
+        },
+      ),
+    ));
   }
 }
